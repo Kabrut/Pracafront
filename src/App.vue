@@ -1,28 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+     
+    <div id="nav">
+      <router-link to="/"><p>Home</p></router-link> 
+      <router-link to="/Grades"><p>Grades</p></router-link>
+      <router-link to="/Mail"><p>Mail</p></router-link> 
+      <router-link to="/Tasks"><p>Tasks</p></router-link>
+      <router-link to="/Login"><p>Login</p></router-link>
+      <router-link to="/Posts"><p>Posts</p></router-link>
+    </div>
+    <div class="Chat">
+    <ChatFriends/>
+    </div>
+    <router-view/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+import ChatFriends from "@/components/ChatFriends";
+    export default {
+        name: "App",
+        components: {ChatFriends}
+    }
 </script>
-
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.Chat{
+  display:flex;
+  float:right;
+  background-color:rgba(0,0,0,.4);
+   min-height: 95vh;
 }
+#nav p{
+  display:inline!important;
+  background:gray;
+  padding:20px;
+  margin:3px;
+ 
+  
+  
+}
+#nav{
+  text-align: center;
+  background: #0033a0;
+  height:3em;
+  padding:1px;
+}
+
 </style>
