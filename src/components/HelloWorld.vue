@@ -1,35 +1,26 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="side">
+    <div class="side-header">
+
+      <p><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMjU1LjE1LDQ2OC42MjVINjMuNzg3Yy0xMS43MzcsMC0yMS4yNjItOS41MjYtMjEuMjYyLTIxLjI2MlY2NC42MzhjMC0xMS43MzcsOS41MjYtMjEuMjYyLDIxLjI2Mi0yMS4yNjJIMjU1LjE1ICAgIGMxMS43NTgsMCwyMS4yNjItOS41MDQsMjEuMjYyLTIxLjI2MlMyNjYuOTA4LDAuODUsMjU1LjE1LDAuODVINjMuNzg3QzI4LjYxOSwwLjg1LDAsMjkuNDcsMCw2NC42Mzh2MzgyLjcyNCAgICBjMCwzNS4xNjgsMjguNjE5LDYzLjc4Nyw2My43ODcsNjMuNzg3SDI1NS4xNWMxMS43NTgsMCwyMS4yNjItOS41MDQsMjEuMjYyLTIxLjI2MiAgICBDMjc2LjQxMiw0NzguMTI5LDI2Ni45MDgsNDY4LjYyNSwyNTUuMTUsNDY4LjYyNXoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik01MDUuNjY0LDI0MC44NjFMMzc2LjM4OCwxMTMuMjg2Yy04LjMzNS04LjI1LTIxLjgxNS04LjE0My0zMC4wNjUsMC4yMTNzLTguMTY1LDIxLjgxNSwwLjIxMywzMC4wNjVsOTIuMzg1LDkxLjE3MyAgICBIMTkxLjM2MmMtMTEuNzU4LDAtMjEuMjYyLDkuNTA0LTIxLjI2MiwyMS4yNjJjMCwxMS43NTgsOS41MDQsMjEuMjYzLDIxLjI2MiwyMS4yNjNoMjQ3LjU1OWwtOTIuMzg1LDkxLjE3MyAgICBjLTguMzc3LDguMjUtOC40NDEsMjEuNzA5LTAuMjEzLDMwLjA2NWM0LjE2Nyw0LjIxLDkuNjUzLDYuMzM2LDE1LjEzOSw2LjMzNmM1LjQwMSwwLDEwLjgwMS0yLjA0MSwxNC45MjYtNi4xMjRsMTI5LjI3Ni0xMjcuNTc1ICAgIGM0LjA0LTMuOTk3LDYuMzM2LTkuNDQxLDYuMzM2LTE1LjEzOUM1MTIsMjUwLjMwMiw1MDkuNzI1LDI0NC44OCw1MDUuNjY0LDI0MC44NjF6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" /></p>
+      <p><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDE0IDE0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxNCAxNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik03LDlMNS4yNjgsNy40ODRsLTQuOTUyLDQuMjQ1QzAuNDk2LDExLjg5NiwwLjczOSwxMiwxLjAwNywxMmgxMS45ODYgICAgYzAuMjY3LDAsMC41MDktMC4xMDQsMC42ODgtMC4yNzFMOC43MzIsNy40ODRMNyw5eiIgZmlsbD0iIzAwMDAwMCIvPgoJCTxwYXRoIGQ9Ik0xMy42ODQsMi4yNzFDMTMuNTA0LDIuMTAzLDEzLjI2MiwyLDEyLjk5MywySDEuMDA3QzAuNzQsMiwwLjQ5OCwyLjEwNCwwLjMxOCwyLjI3M0w3LDggICAgTDEzLjY4NCwyLjI3MXoiIGZpbGw9IiMwMDAwMDAiLz4KCQk8cG9seWdvbiBwb2ludHM9IjAsMi44NzggMCwxMS4xODYgNC44MzMsNy4wNzkgICAiIGZpbGw9IiMwMDAwMDAiLz4KCQk8cG9seWdvbiBwb2ludHM9IjkuMTY3LDcuMDc5IDE0LDExLjE4NiAxNCwyLjg3NSAgICIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" /></p>
+      <p><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDY3LjgxOSw0MzEuODUxbC0zNi42NTEtNjEuMDU2Yy0xNi44OTYtMjguMTgxLTI1LjgzNS02MC40MzctMjUuODM1LTkzLjMxMlYyMjQgICAgYzAtODIuMzI1LTY3LjAwOC0xNDkuMzMzLTE0OS4zMzMtMTQ5LjMzM1MxMDYuNjY3LDE0MS42NzUsMTA2LjY2NywyMjR2NTMuNDgzYzAsMzIuODc1LTguOTM5LDY1LjEzMS0yNS44MzUsOTMuMzEyICAgIGwtMzYuNjUxLDYxLjA1NmMtMS45ODQsMy4yODUtMi4wMjcsNy40MDMtMC4xNDksMTAuNzMxYzEuODk5LDMuMzQ5LDUuNDYxLDUuNDE5LDkuMzAxLDUuNDE5aDQwNS4zMzMgICAgYzMuODQsMCw3LjQwMy0yLjA2OSw5LjMwMS01LjQxOUM0NjkuODQ1LDQzOS4yNTMsNDY5LjgwMyw0MzUuMTM2LDQ2Ny44MTksNDMxLjg1MXogTTcyLjE3MSw0MjYuNjY3bDI2Ljk0NC00NC45MDcgICAgQzExOC4wMTYsMzUwLjI3MiwxMjgsMzE0LjIxOSwxMjgsMjc3LjQ4M1YyMjRjMC03MC41OTIsNTcuNDA4LTEyOCwxMjgtMTI4czEyOCw1Ny40MDgsMTI4LDEyOHY1My40ODMgICAgYzAsMzYuNzM2LDkuOTg0LDcyLjc4OSwyOC44NjQsMTA0LjI3N2wyNi45NjUsNDQuOTA3SDcyLjE3MXoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yNTYsMGMtMjMuNTMxLDAtNDIuNjY3LDE5LjEzNi00Mi42NjcsNDIuNjY3djQyLjY2N0MyMTMuMzMzLDkxLjIyMSwyMTguMTEyLDk2LDIyNCw5NnMxMC42NjctNC43NzksMTAuNjY3LTEwLjY2NyAgICBWNDIuNjY3YzAtMTEuNzc2LDkuNTU3LTIxLjMzMywyMS4zMzMtMjEuMzMzczIxLjMzMyw5LjU1NywyMS4zMzMsMjEuMzMzdjQyLjY2N0MyNzcuMzMzLDkxLjIyMSwyODIuMTEyLDk2LDI4OCw5NiAgICBzMTAuNjY3LTQuNzc5LDEwLjY2Ny0xMC42NjdWNDIuNjY3QzI5OC42NjcsMTkuMTM2LDI3OS41MzEsMCwyNTYsMHoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0zMDIuMTY1LDQzMS45MzZjLTMuMDA4LTUuMDc3LTkuNTE1LTYuNzQxLTE0LjYxMy0zLjgxOWMtNS4wOTksMi45ODctNi44MDUsOS41MzYtMy44MTksMTQuNjEzICAgIGMyLjc3Myw0LjcxNSw0LjI4OCwxMC4zNjgsNC4yODgsMTUuOTM2YzAsMTcuNjQzLTE0LjM1NywzMi0zMiwzMmMtMTcuNjQzLDAtMzItMTQuMzU3LTMyLTMyYzAtNS41NjgsMS41MTUtMTEuMjIxLDQuMjg4LTE1LjkzNiAgICBjMi45NjUtNS4wOTksMS4yNTktMTEuNjI3LTMuODE5LTE0LjYxM2MtNS4xNDEtMi45MjMtMTEuNjI3LTEuMjU5LTE0LjYxMywzLjgxOWMtNC43MTUsOC4wNjQtNy4yMTEsMTcuMzAxLTcuMjExLDI2LjczMSAgICBDMjAyLjY2Nyw0ODguMDg1LDIyNi41ODEsNTEyLDI1Niw1MTJzNTMuMzMzLTIzLjkxNSw1My4zNzYtNTMuMzMzQzMwOS4zNzYsNDQ5LjIzNywzMDYuODgsNDQwLDMwMi4xNjUsNDMxLjkzNnoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></p>
+   </div> 
+    <img src="https://static.thenounproject.com/png/630729-200.png">
+     
+    
+    <h3>Lorem Ipsum</h3>
+    <div class="side-account">
+      <router-link to="/UserPanel"><button>Profil</button></router-link>
+      <router-link to="/UserPanel"><button>Kontakty</button></router-link>
+      </div>
+    <button>Wiadomości</button>
+    <button>Oceny</button>
+    <button>Zadania</button>
+    
+
   </div>
 </template>
-
 <script>
 export default {
   name: 'HelloWorld',
@@ -41,18 +32,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+button{
+  border: none;
+  padding: 10px;
+  background: #16b607;
+  color: whitesmoke;
+  margin:5px;
+  width: 50%;
+  
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.side{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items:center;
+  background:#dfdfdf;
+  min-height: 100vh;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.side-header{
+  display: flex;
+  
 }
-a {
-  color: #42b983;
+.side-header p{
+  padding: 15px;
+  
+}
+.side-account{
+  display: flex;
+  width:100%;
 }
 </style>
