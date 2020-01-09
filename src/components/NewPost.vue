@@ -5,14 +5,42 @@
                 Nowy post 
             </b-card-header>
             <b-card-content>
-                <b-form-textarea/>
+                <b-form-textarea v-model="Post.content"/>
             </b-card-content>
-            <b-card-footer><b-button> Wyślij </b-button> &nbsp <b-button> Dodaj plik </b-button></b-card-footer>
+            <b-card-footer><b-button @click="newPost()"> Wyślij </b-button> &nbsp <b-button> Dodaj plik </b-button></b-card-footer>
         </b-card>
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
+    data () {
+    return {
+      response: [],
+      errors: [],
+      Post: {
+        content: ''
+      }
+    }
+  },
+   methods: {
+      newPost () {
+        var params = new URLSearchParams();
+      params.append('content',this.Post.content)
+
+
+      axios.post(`http://localhost:3309/newPost`, params)
+        .then(response => {
+          this.response = response.data
+          console.log(response.data)
+          this.showResponse = true
+          location.reload(true)
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+      }
+    }
 }
 </script>
 <style scoped>
