@@ -15,12 +15,14 @@
    <b-table striped outlined selectable hover :items="items" :fields="fields"><input type="checkbox"/></b-table>
     </b-tab>
     <b-tab title-link-class="newmail" title="Nowa wiadomość" >
-      <b-form-group label="Odbiorca">
+
+      <NewMail/>
+      <!-- <b-form-group label="Odbiorca">
         <b-form-input placeholder="Odbiorca"/>
       </b-form-group>
       <b-form-group label="Wiadomość">
         <b-form-textarea placeholder="Treść" rows="10" max-rows="25"/>
-      </b-form-group>
+      </b-form-group> -->
 
     </b-tab>
   </b-tabs>
@@ -32,7 +34,9 @@
 </template>
 
 <script>
+import NewMail from "./NewMail";
 export default {
+   components: {NewMail},
      data() {
       return {
         // Note `isActive` is left out and will not appear in the rendered table

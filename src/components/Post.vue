@@ -1,15 +1,10 @@
 <template>
   <div id="app">
+    <NewPost/>
     <div class="content" >
       <b-card v-for="Post in Posts"
               :key="Post.post_id"
       >
-
-        <div class="delete_post">
-          <b-button
-          @click="deletePost(Post.post_id)">Usuń
-          </b-button>
-        </div>
         <p><strong>
         <h3>{{ Post.post_title }}</h3>
         </strong>
@@ -30,10 +25,11 @@
 </template>
 
 <script>
+import NewPost from './NewPost'
 import axios from 'axios'
 export default {
   name: 'Posts',
-
+  components: { NewPost},
   data () {
     return {
       commentkey: 0,
@@ -44,7 +40,7 @@ export default {
   },
   methods: {
     showPost () {
-      axios.get(`http://localhost:3038/show`)
+      axios.get(`http://localhost:3309/show`)
         .then(response => {
           this.Posts = response.data.reverse()
           console.log(response.Post)
@@ -52,15 +48,8 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-    },/*
-    deletePost (post_id) {
-      axios.delete(`http://localhost:3038/posts/${post_id}`)
-        .then(response => {
-          console.log(response)
-        })
-      this.$emit('delpost')
     }
-  },*/
+  },
   updateComponent: function () {
     this.post_id += 1
     this.commentkey += 1

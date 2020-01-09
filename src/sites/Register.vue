@@ -3,18 +3,18 @@
     <h3><center>Rejestracja</center></h3>
     <div class="form">
         <b-card>
-    <b-form @submit.prevent="register">
+    <b-form >
       <b-form-group label="Login">
-        <b-form-input v-model="email" type='email' placeholder="Login"/>
+        <b-form-input v-model="Register.email" type='email' placeholder="Login"/>
       </b-form-group>
       <b-form-group label="Hasło">
-        <b-form-input v-model="password" type='password' placeholder="Hasło"/>
+        <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
       </b-form-group>
       <b-form-group label="Potwierdź hasło">
-        <b-form-input v-model="repeatpassword" type='password' placeholder="Hasło"/>
+        <b-form-input v-model="Register.password2" type='password' placeholder="Hasło"/>
       </b-form-group>
       <div class="submit">
-      <b-button type='submit'>Zarejestruj</b-button>
+      <b-button @click="checkpasswords()">Zarejestruj</b-button>
       <router-link to="/Login"><b-button>Powrót</b-button></router-link>
       </div>
     </b-form>
@@ -24,8 +24,44 @@
 </template>
 
 <script>
+import axios from 'axios'  
 export default {
-    
+   
+  data () {
+    return {
+      response: [],
+      errors: [],
+      Register: {
+        email: '',
+        password: '',
+        password2:''
+      }
+    }
+  },
+  methods: {
+    createUser () {
+      var params = new URLSearchParams();
+      params.append('email',this.Register.email)
+      params.append('password',this.Register.password)
+
+      axios.post(`http://localhost:3309/user`, params)
+        .then(response => {
+          this.response = response.data
+          console.log(response.data)
+          this.showResponse = true
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    },
+    checkpasswords () {
+      if (this.Register.password===this.Register.password2){
+        this.createUser();
+        
+      }else {alert('Hasla nie sa zgodne');
+      }
+    }
+  }
 }
 
 </script>
