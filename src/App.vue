@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import ChatFriends from "@/components/ChatFriends";
+import ChatFriends from "@/components/Chat/ChatFriends";
     export default {
         name: "App",
         components: {ChatFriends}
@@ -34,9 +34,6 @@ import ChatFriends from "@/components/ChatFriends";
   background:gray;
   padding:20px;
   margin:3px;
- 
-  
-  
 }
 #nav{
   text-align: center;

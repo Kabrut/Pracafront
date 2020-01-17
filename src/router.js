@@ -1,12 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './sites/Home.vue'
-
+import store from './store/store'
 Vue.use(Router)
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/Login')
+}
 
 export default new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
       path: '/Login',
@@ -21,35 +36,42 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+     // beforeEnter: ifAuthenticated,
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('./sites/About.vue')
+      component: () => import('./sites/About.vue'),
+     // beforeEnter: ifAuthenticated,
     },
     {
       path: '/grades',
       name: 'grades',
-      component: () => import(/* webpackChunkName: "grades" */ './sites/Grades.vue')
+      component: () => import(/* webpackChunkName: "grades" */ './sites/Grades.vue'),
+     // beforeEnter: ifAuthenticated,
     },
     {
       path: '/Mail',
       name: 'mail',
-      component: () => import(/* webpackChunkName: "mail" */ './sites/Mail.vue')
+      component: () => import(/* webpackChunkName: "mail" */ './sites/Mail.vue'),
+     // beforeEnter: ifAuthenticated,
     },
     {
       path: '/Tasks',
       name: 'tasks',
-      component: () => import(/* webpackChunkName: "tasks" */ './sites/Tasks.vue')
+      component: () => import(/* webpackChunkName: "tasks" */ './sites/Tasks.vue'),
+     // beforeEnter: ifAuthenticated,
     },{
       path: '/Posts',
       name: 'posts',
-      component: () => import(/* webpackChunkName: "posts" */ './sites/Posts.vue')
+      component: () => import(/* webpackChunkName: "posts" */ './sites/Posts.vue'),
+     // beforeEnter: ifAuthenticated,
     },{
       path: '/UserPanel',
       name: 'userpanel',
-      component: () => import(/* webpackChunkName: "posts" */ './sites/UserPanel.vue')
+      component: () => import(/* webpackChunkName: "posts" */ './sites/UserPanel.vue'),
+     // beforeEnter: ifAuthenticated,
     },
       { path: '*', redirect: '/' }
       ]

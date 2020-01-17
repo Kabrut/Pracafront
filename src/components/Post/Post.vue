@@ -46,7 +46,7 @@ export default {
           console.log(response.Post)
         })
         .catch(e => {
-          this.errors.push(e)
+          this.errors.push("cos nie pyklo")
         })
     }
   },

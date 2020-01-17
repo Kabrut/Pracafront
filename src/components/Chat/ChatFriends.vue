@@ -1,12 +1,18 @@
 <template>
-    <div>
+    <div class="chat">
     <b-card no-body>
-      <b-tabs card>
+       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
         <b-tab v-for="i in tabs" :key="'dyn-tab-' + i" :title="'Chat ' + i">
-          Tab contents {{ i }}
+         <div class="messages">
+           <div class="send"><b-badge variant="secondary"><div class="wrap">{{Chat.message}}</div></b-badge></div>
+          <div class="received"><b-badge variant="primary">Tak będzie wyglądała wiadomość otrzymana</b-badge></div>
+          
+          
+          </div>
+          <b-input v-model="Chat.message" v-on:keyup.enter="send()"/>
           <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)">
-            Close tab
+            X
           </b-button>
         </b-tab>
 
@@ -22,6 +28,7 @@
             otwórz nowy za pomocą przycisku <b>+</b>.
           </div>
         </template>
+
       </b-tabs>
         <b-table-simple striped hover responsive>
         <b-thead head-variant="dark">
@@ -31,23 +38,13 @@
            </b-tr>
         </b-thead>
          <b-tbody>
-      <b-tr>
+      <b-tr @click="newTab">
      
-        <b-th class="text-right">Jan Kowalski</b-th>
+        <b-th class="text-right">Jan </b-th>
         <b-td/>
         <b-td/>
         <b-td/>
         <b-td>22 min</b-td>
-      
-      </b-tr>
-      <b-tr>
-        
-        <b-th class="text-right">Kamil</b-th>
-        <b-td/>
-        <b-td/>
-        <b-td/>
-
-        <b-td>56 min</b-td>
       </b-tr>
       </b-tbody>
    </b-table-simple>
@@ -62,7 +59,11 @@ export default {
     data() {
       return {
         tabs: [],
-        tabCounter: 0
+        tabCounter: 0,
+        Chat:{
+          message: "",
+
+        }
       }
     },
     methods: {
@@ -75,10 +76,43 @@ export default {
       },
       newTab() {
         this.tabs.push(this.tabCounter++)
+      },
+      send() {
+         var params = new URLSearchParams();
+      params.append('subject',this.Chat.message)
+
+      axios.post(`http://localhost:3309/newchat`, params)
+        .then(response => {
+          this.response = response.data
+          console.log(response.data)
+          this.showResponse = true
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
       }
     }
   }
 </script>
 <style scoped>
-
+.wrap{
+   overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.messages{
+   max-height: 20em;
+  overflow:auto;
+}
+.chat{
+  width:20rem;
+}
+.received{
+  float: left;
+  overflow-wrap: normal;
+}
+.send{
+  float: right;
+  word-wrap: normal;
+}
 </style>

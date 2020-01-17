@@ -40,7 +40,8 @@
     </div> -->
     <div class="side">
       <h2>Najnowsze Wiadomości</h2>
-      <b-card-group columns>
+      <b-card-group column >
+      
     <b-card bg-variant="info" text-variant="white" header="Zadania" class="text-center">
     <b-card-text> 
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, eaque libero porro qui cum neque ab assumenda velit voluptatem distinctio modi optio, animi magnam saepe rem, accusamus dolorum? Illo, vero?
@@ -89,8 +90,9 @@ export default {};
   color: whitesmoke;
   text-align: center;
 }
-.side {
-  width:100%;
+.b-card-columns {
+    column-count: 2;
 }
+
 </style>
 

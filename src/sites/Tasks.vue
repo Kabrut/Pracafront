@@ -1,12 +1,16 @@
 <template>
     <div class="task">
+
        <Addfile/>
+      
+
+       <h2>Ostatnie zadania</h2>
        <Tasks/>
     </div>
 </template>
 <script>
-  import Addfile from "../components/Addfile";
-   import Tasks from "../components/Tasks";
+  import Addfile from "../components/Tasks/Addfile";
+   import Tasks from "../components/Tasks/Tasks";
 export default {
   components:{
      Addfile, Tasks
@@ -15,6 +19,7 @@ export default {
 </script>
 <style scoped>
 .task{
-  display: flex;
+  display: inline-block;
+  align-content:center;
 }
 </style>

@@ -1,12 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import auth from "./auth-mod";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-export const store = new Vuex.Store({
-    state: {
-        logged: {
-            
-        }
-    }
-})
+const debug = process.env.NODE_ENV !== "production";
+
+export default new Vuex.Store({
+  modules: {
+    auth
+  },
+  strict: debug
+});

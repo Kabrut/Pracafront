@@ -1,20 +1,16 @@
 <template>
 <div id="grade">
-    <div class="classes">
-    <Classes/>
-    <Classes/>
-    <Classes/>
-    <Classes/>
-    <Classes/>
-    </div>
+  
+    <GradeList/>
+    
 </div>
 </template>
 
 <script>
-    import Classes from "../components/Classes";
+    import GradeList from "../components/Grades/GradeList";
     export default {
         name: "Grades",
-        components: {Classes}
+        components: {GradeList}
     }
 </script>
 
@@ -22,8 +18,5 @@
 #grade{
     display:flex;
     
-}
-.classes{
-    align-items: stretch;
 }
 </style>

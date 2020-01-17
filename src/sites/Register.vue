@@ -4,8 +4,14 @@
     <div class="form">
         <b-card>
     <b-form >
-      <b-form-group label="Login">
-        <b-form-input v-model="Register.email" type='email' placeholder="Login"/>
+      <b-form-group label="Email">
+        <b-form-input v-model="Register.email" type='email' placeholder="Email"/>
+      </b-form-group>
+      <b-form-group label="Imie">
+        <b-form-input v-model="Register.email" type='email' placeholder="Email"/>
+      </b-form-group>
+      <b-form-group label="Email">
+        <b-form-input v-model="Register.email" type='email' placeholder="Email"/>
       </b-form-group>
       <b-form-group label="Hasło">
         <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
