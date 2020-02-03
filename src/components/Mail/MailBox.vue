@@ -6,13 +6,13 @@
   </div>
     <b-tabs  content-class="mt-3">
     <b-tab title="Odebrane" active>
-        <b-table striped outlined selectable hover :items="items" :fields="fields"></b-table>
+        <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild" responsive="sm"></b-table>
     </b-tab>
     <b-tab title="Wysłane">
-    <b-table striped outlined selectable hover :items="items" :fields="fields"></b-table>
+    <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild"></b-table>
     </b-tab>
     <b-tab title="Sprawdzone">
-   <b-table striped outlined selectable hover :items="items" :fields="fields"><input type="checkbox"/></b-table>
+   <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild"><input type="checkbox"/></b-table>
     </b-tab>
     <b-tab title-link-class="newmail" title="Nowa wiadomość" >
 
@@ -27,28 +27,49 @@
     </b-tab>
   </b-tabs>
   <div>
- 
+    
     
 </div>
 </div>
 </template>
 
 <script>
+import axios from 'axios';
 import NewMail from "./NewMail";
+import ReceivedMail from "./ReceivedMail";
 export default {
-   components: {NewMail},
+   components: {NewMail,ReceivedMail},
      data() {
       return {
         // Note `isActive` is left out and will not appear in the rendered table
-        fields: ['first_name',  'Date'],
-        items: [
-          { isActive: true, Date: '29.11.15', first_name: 'Dickerson', content: 'Lorem ipsum'},
-          { isActive: false, Date: '11.11.11', first_name: 'Larsen'},
-          { isActive: false, Date: '13.13.31', first_name: 'Geneva'},
-          { isActive: true, Date: '22.22.22', first_name: 'Jami'}
-        ]
+        fields: [{key: 'msgid', label:'Data'},
+        {key: 'content', label:'Adresat'},
+        {key:'subject',label:"Temat"}],
+        items: [{}],
+        child: [],
+        selected:[]
       }
+    },
+    methods: {
+      showMessages () {
+      axios.get(`http://localhost:3309/showMsg`)
+        .then(response => {
+          this.items = response.data
+          console.log(response.items)
+        })
+        .catch(e => {
+          this.errors.push("cos nie pyklo")
+        })
+    },
+    toChild (items) {
+      this.selected = items;
+      this.$emit('selectedMsg',this.selected)
     }
+  },
+    mounted () {
+    this.showMessages()
+  }
+    
     
 }
 </script>

@@ -24,6 +24,6 @@ export default {
 <style scoped>
 .home{
   display: flex;
-  width:64%;
+  width:auto;
 }
 </style>

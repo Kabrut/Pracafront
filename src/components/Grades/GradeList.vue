@@ -1,6 +1,6 @@
 <template>
 <div id="grade">
-<b-card>
+<b-card class="table">
    <b-table-simple striped hover responsive>
         <b-thead head-variant="dark">
            <b-tr>
@@ -45,5 +45,8 @@ export default {
 #grade{
     float: right;
     width: 100%;
+}
+.table{
+   width:100%;
 }
 </style>

@@ -1,8 +1,9 @@
 <template>
     <div class="tasks">
-        <b-card>
+        <b-card v-for="Task in Tasks"
+              :key="Task.id">
             <p>
-                {{content}}{{errors}}
+                {{Task.content}}
             </p>
         </b-card>
     </div>
@@ -14,14 +15,15 @@ export default {
     data () {
     return {
       TaskContent: "",
-      errors: []
+      errors: [],
+      Tasks: ""
     }
   },
     methods: {
     showMail () {
       axios.get(`http://localhost:3309/showTasks`)
         .then(response => {
-          this.TaskContent = response.data.reverse()
+          this.Tasks = response.data.reverse()
         })
         .catch(e => {
           this.errors.push("cos nie pyklo")
