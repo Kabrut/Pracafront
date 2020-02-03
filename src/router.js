@@ -69,7 +69,7 @@ export default new Router({
      // beforeEnter: ifAuthenticated,
     },{
       path: '/UserPanel',
-      name: 'userpanel',
+      name: 'userPanel',
       component: () => import(/* webpackChunkName: "posts" */ './sites/UserPanel.vue'),
      // beforeEnter: ifAuthenticated,
     },

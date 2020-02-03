@@ -4,28 +4,26 @@
        <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
         <b-tab v-for="i in tabs" :key="'dyn-tab-' + i" :title="'Chat ' + i">
-         <div class="messages">
-           <div class="send"><b-badge variant="secondary"><div class="wrap">{{Chat.message}}</div></b-badge></div>
+         <div class="messages" v-for="j in Chat" :key="'dyn-msg'+j">
+           <div class="send"><b-badge variant="secondary" ><div class="wrap">{{Chat.message}}</div></b-badge></div>
           <div class="received"><b-badge variant="primary">Tak będzie wyglądała wiadomość otrzymana</b-badge></div>
           
           
           </div>
-          <b-input v-model="Chat.message" v-on:keyup.enter="send()"/>
+          <b-input v-model="Chat.messagewrited" @keyup.enter="send()"/>
           <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)">
             X
           </b-button>
         </b-tab>
 
         <!-- New Tab Button (Using tabs-end slot) -->
-        <template v-slot:tabs-end>
-          <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
-        </template>
+      
 
         <!-- Render this if no tabs -->
         <template v-slot:empty>
           <div class="text-center text-muted">
             Brak otwartych czatów<br>
-            otwórz nowy za pomocą przycisku <b>+</b>.
+          
           </div>
         </template>
 
@@ -55,11 +53,15 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data() {
       return {
         tabs: [],
+        params:[],
+        msgs:[],
         tabCounter: 0,
+        msgCounter: 0,
         Chat:{
           message: "",
 
@@ -78,9 +80,10 @@ export default {
         this.tabs.push(this.tabCounter++)
       },
       send() {
-         var params = new URLSearchParams();
-      params.append('subject',this.Chat.message)
-
+        
+        this.Chat.message=this.Chat.messagewrited,
+        this.msgs.puch(this.msgCounter++),
+      params.push('subject',this.Chat.message)
       axios.post(`http://localhost:3309/newchat`, params)
         .then(response => {
           this.response = response.data

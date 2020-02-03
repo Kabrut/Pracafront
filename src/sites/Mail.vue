@@ -1,10 +1,11 @@
 <template>
 <div id="mail">
     <div class="mailbox">
-    <MailBox/>
+    <MailBox v-on:selectedMsg="msg"/>
     </div>
+    
     <div class="ReceivedMail">
-    <ReceivedMail/></div>
+    <ReceivedMail :child='selectedMsg'/></div>
 </div>
 </template>
 
@@ -12,8 +13,18 @@
     import MailBox from "../components/Mail/MailBox";
     import ReceivedMail from "../components/Mail/ReceivedMail";
     export default {
+        data () {
+            return {
+                selectedMsg: ''
+            }
+        },
         name: "Mail",
-        components: {  MailBox, ReceivedMail}
+        components: {  MailBox, ReceivedMail},
+        methods:{
+        msg (value){
+            this.selectedMsg = value
+        }
+        }
     }
 </script>
 <style scoped>

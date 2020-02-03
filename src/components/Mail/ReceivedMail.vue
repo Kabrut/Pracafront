@@ -1,9 +1,9 @@
 <template>
     <div class="received">
             <b-card 
-            title="Nadawca">
-            <b-card-title>{{ MailContent.title }}sdfsdfsdf</b-card-title>
-        <b-card-text>{{ MailContent }} {{ errors }} </b-card-text>
+            title="Temat:">
+            <b-card-title>{{ child[0].subject}}</b-card-title>
+        <b-card-text>{{child[0].content}}</b-card-text>
         </b-card>
     </div>
 </template>
@@ -14,6 +14,14 @@ export default {
     return {
       MailContent: "",
       errors: []
+    }
+  },
+  props:{
+    child:{
+      type:String,
+      default(){
+        return ''
+      }
     }
   },
     methods: {

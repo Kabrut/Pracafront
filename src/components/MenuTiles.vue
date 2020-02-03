@@ -39,9 +39,12 @@
       </div>
     </div> -->
     <div class="side">
-      <h2>Najnowsze Wiadomości</h2>
-      <b-card-group column >
+
       
+      <h2>Najnowsze Wiadomości</h2>
+            <b-alert variant="success" show dismissable>Przykladowy alert!</b-alert>
+      <b-card-group column >
+
     <b-card bg-variant="info" text-variant="white" header="Zadania" class="text-center">
     <b-card-text> 
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, eaque libero porro qui cum neque ab assumenda velit voluptatem distinctio modi optio, animi magnam saepe rem, accusamus dolorum? Illo, vero?
@@ -74,6 +77,9 @@ export default {};
   align-content: center;
   overflow:auto;
 }
+.side{
+  width:100%;
+}
 .tile-border {
   display: inline-block;
   padding: 100px;
@@ -92,6 +98,9 @@ export default {};
 }
 .b-card-columns {
     column-count: 2;
+}
+.tile-back{
+  width:100%;
 }
 
 </style>
