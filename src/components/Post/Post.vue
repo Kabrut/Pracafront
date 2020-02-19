@@ -15,7 +15,7 @@
 
         </div>
       </b-card> 
-
+      <Comment/>
       </b-card>
     </div>
 
@@ -25,16 +25,17 @@
 </template>
 
 <script>
+import Comment from './Comment'
 import NewPost from './NewPost'
 import axios from 'axios'
 export default {
   name: 'Posts',
-  components: { NewPost},
+  components: { NewPost, Comment},
   data () {
     return {
       commentkey: 0,
       post_id: 0,
-      Posts: [],
+      Posts: "",
       errors: []
     }
   },
@@ -56,6 +57,9 @@ export default {
   },
   mounted () {
     this.showPost()
+  /*  setInterval(function (){
+      this.showPost();
+    }.bind(this), 500)*/
   }
 }
 </script>

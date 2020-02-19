@@ -40,7 +40,7 @@ export default {
        let config={header:{'Content-Type' : 'multipart/form-data'}}
 
 
-      axios.post(`http://localhost:3309/newTask`, params,formData,config)
+      axios.post(`http://localhost:3309/newTask`, [this.params,this.formData])
         .then(response => {
           this.response = response.data
           //console.log(response.data)

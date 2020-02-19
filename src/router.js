@@ -49,7 +49,7 @@ export default new Router({
       path: '/grades',
       name: 'grades',
       component: () => import(/* webpackChunkName: "grades" */ './sites/Grades.vue'),
-     // beforeEnter: ifAuthenticated,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/Mail',
