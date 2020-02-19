@@ -8,6 +8,7 @@
       <router-link to="/Tasks"><p>Tasks</p></router-link>
       <router-link to="/Login"><p>Login</p></router-link>
       <router-link to="/Posts"><p>Posts</p></router-link>
+      <router-link to="/UserPanel"><p>UserPanel</p></router-link>
     </div>
     <div class="Chat">
     <ChatFriends/>
@@ -27,7 +28,9 @@ import ChatFriends from "@/components/Chat/ChatFriends";
   display:flex;
   float:right;
   background-color:rgba(0,0,0,.4);
-   min-height: 95vh;
+  min-height: 95vh;
+  position: sticky;
+  top: 3em;
 }
 #nav p{
   display:inline!important;

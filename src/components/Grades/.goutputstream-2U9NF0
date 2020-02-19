@@ -20,6 +20,8 @@
       </b-tr>
       <b-tr>
         
+        <b-th class="text-right">Antwerp</b-th>
+        <b-td>56</b-td>
         <b-td>22</b-td>
         <b-td>43</b-td>
         <b-td variant="success">72</b-td>
@@ -48,4 +50,3 @@ export default {
    width:100%;
 }
 </style>
-      

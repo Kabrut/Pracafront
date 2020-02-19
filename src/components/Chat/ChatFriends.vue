@@ -109,6 +109,7 @@ export default {
 }
 .chat{
   width:20rem;
+
 }
 .received{
   float: left;
