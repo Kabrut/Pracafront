@@ -43,6 +43,7 @@ export default {
           this.response = response.data
           console.log(response.data)
           this.showResponse = true
+            this.$store.dispatch('login',{ email, password}).then(() => this.$router.push('/')).catch(err => console.log(err))
         })
         .catch(e => {
           this.errors.push(e)

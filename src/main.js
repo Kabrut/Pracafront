@@ -13,6 +13,12 @@ Vue.component('v-select', vSelect)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
+
+Vue.prototype.$http = Axios;
+const token = localStorage.getItem('token');
+if (token) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = token;}
+
 new Vue({
   router,
   render: h => h(App)

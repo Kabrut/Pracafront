@@ -1,16 +1,5 @@
 <template>
 <div>
-   <!-- <b-button v-b-modal.modal-2>Dodaj liste</b-button>
-      <b-modal id="modal-2" 
-      title="Nowa Lista">
-    <b-form-file
-      v-model="file"
-      :state="Boolean(file)"
-      placeholder="Choose a file or drop it here..."
-      drop-placeholder="Drop file here..."
-    ></b-form-file>
-    <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
-      </b-modal> -->
     <vue-csv-import v-model="parseCsv" checkboxClass="Plik zawiera nagłówki" :map-fields="['Imie','Nazwisko','Kierunek','Grupa','email']">
       <template slot="hasHeaders" slot-scope="{headers, toggle}">
         <label>
@@ -33,8 +22,6 @@
     </vue-csv-import>
     <b-table :items="parseCsv"  />
     {{parseCsv.length}}
-    {{parseCsv.Imie}}
-    {{file}}
     <b-button label="Wyślij" @click="newList()"></b-button>
     
 </div>
@@ -49,24 +36,25 @@ import axios from 'axios'
           return {
             file: [],
             parseCsv:[]
-
           }
         },
         methods: {
       newList () {
-        var i
-        for(i=0; i<this.parseCsv.length;i++){
-        var params = new URLSearchParams();
-      params.append('content',JSON.stringify(this.parseCsv[i]))
-        this.file=params[1]
-
+        let i;
+        for(i=0; i<11;i++){
+        let params = new URLSearchParams();
+      params.append('name',this.parseCsv[i].Imie);
+      params.append('surname',this.parseCsv[i].Nazwisko);
+      params.append('field',this.parseCsv[i].Kierunek);
+      params.append('group',this.parseCsv[i].Grupa);
+      params.append('email',this.parseCsv[i].email);
       axios.post(`http://localhost:3309/List`, params)
         .then(response => {
-          this.response = response.data
+          this.response = response.data;
           //console.log(response.data)
           this.showResponse = true
          // location.reload(true)
-        
+
         })
         .catch(e => {
           this.errors.push(e)
