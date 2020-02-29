@@ -4,12 +4,12 @@
       v-b-toggle.collapse-3
       variant="primary"
       > Pokaż komentarze</b-button>
-
+        <div class="loop" v-for="Comment in Comments" v-bind:key="Comment.postid">
       <b-collapse
       id="collapse-3"
       class="mt-2"
     >
-      <b-card bg-variant="light" border-variant="info">
+      <b-card bg-variant="light" border-variant="info" >
     <div class="image">
      <img
         src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -22,9 +22,9 @@
     <div class="name">
       <p></p>
     </div>
-    <div class="content">{{ Comments }}</div>
+    <div class="content">{{ Comment.content }}</div>
         </b-card>
-      </b-collapse>
+      </b-collapse></div>
   </div>
 </template>
 
@@ -50,10 +50,9 @@ export default {
       this.showComment()
     },
     showComment () {
-      axios.get(`http://localhost:3309/show`)
+      axios.get(`http://localhost:3309/showComment/${15}`)
         .then(response => {
           this.Comments = response.data.reverse()
-          console.log(response.Comments)
         })
         .catch(e => {
           this.errors.push(e)

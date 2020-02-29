@@ -2,6 +2,7 @@
 <div class="page">
     <h3><center>Logowanie</center></h3>
     <div class="form">
+        {{cos}}
         <b-card>
     <b-form @submit.prevent="login">
       <b-form-group label="Login">
@@ -15,6 +16,8 @@
       <router-link to="/Register"><b-button>Zarejestruj</b-button></router-link>
       </div>
     </b-form>
+            {{response[0]}}
+            {{cos[1]}}
         </b-card>
     </div>
 </div>
@@ -29,7 +32,10 @@ export default {
       Login:{
         password: '',
         email: ''
-      }
+      },
+        response: '',
+        user:'',
+        cos: ''
     }
   },    
   methods: {
@@ -43,14 +49,18 @@ export default {
           this.response = response.data
           console.log(response.data)
           this.showResponse = true
-            this.$store.dispatch('login',{ email, password}).then(() => this.$router.push('/')).catch(err => console.log(err))
+           localStorage.email =  this.Login.email;
+           localStorage.role = this.response[0];
+           localStorage.group = this.response[1];
+           localStorage.field = this.response[2];
+           localStorage.name = this.response[3];
+           localStorage.surname = this.response[4];
+
+         //   this.$router.push('/')
         })
         .catch(e => {
           this.errors.push(e)
         })
-    
-    const { username, password } = this
-    this.$store.dispatch(AUTH_REQUEST, { username, password }).then(()=> {this.$router.push('/')})
   }
   }
   

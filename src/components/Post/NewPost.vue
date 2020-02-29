@@ -26,7 +26,8 @@ export default {
    methods: {
       newPost () {
         var params = new URLSearchParams();
-      params.append('content',this.Post.content)
+        params.append('content',this.Post.content);
+        params.append('email', localStorage.email);
 
 
       axios.post(`http://localhost:3309/newPost`, params)

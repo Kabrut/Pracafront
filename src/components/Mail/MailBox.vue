@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 <div id="MailBox">
   <div class="buttons">
     <b-button> Dodaj do sprawdzonych </b-button>
@@ -6,7 +6,11 @@
   </div>
     <b-tabs  content-class="mt-3">
     <b-tab title="Odebrane" active>
-        <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild" responsive="sm"></b-table>
+        <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild" responsive="sm">
+            <template v-slot:cell(checkbox)>
+                <input type="checkbox"/>
+            </template>
+        </b-table>
     </b-tab>
     <b-tab title="Wysłane">
     <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild"></b-table>
@@ -42,10 +46,11 @@ export default {
      data() {
       return {
         // Note `isActive` is left out and will not appear in the rendered table
-        fields: [{key: 'msgid', label:'Data'},
-        {key: 'content', label:'Adresat'},
+        fields: [ {key: 'checkbox', label: ''},
+            {key: 'msgid', label:'Data'},
+        {key: 'user.mail', label:'Adresat'},
         {key:'subject',label:"Temat"}],
-        items: [{}],
+        items: [],
         child: [],
         selected:[]
       }
