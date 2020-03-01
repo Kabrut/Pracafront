@@ -6,6 +6,7 @@
         <b-tab title="Dodaj post do grupy"><Groups/></b-tab>
        
         <b-tab title="Dodaj liste studentów"> <div class="AddList"><AddStudentList/></div></b-tab>
+        <b-tab title="Dodaj starostę grupy"><AddLeader/></b-tab>
     </b-tabs>
     </div>
 </template>
@@ -15,8 +16,10 @@ import Groups from '../components/UserPanel/Teacher/Groups'
  import StudentList from '../components/UserPanel/StudentList'
  import Global from '../components/UserPanel/Global'
  import AddStudentList from '../components/UserPanel/AddStudentList'
+import AddLeader from "../components/UserPanel/Teacher/AddLeader";
 export default {
     components:{
+        AddLeader,
        Global, StudentList, Groups, AddStudentList
     } 
 }

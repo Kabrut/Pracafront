@@ -2,7 +2,7 @@
 <div>
     <b-dropdown-form>
       <b-form-group label="Odbiorca">
-        <b-form-input placeholder="Odbiorca"/>
+        <b-form-input type="email" placeholder="Odbiorca" v-model="Message.receiver"/>
       </b-form-group>
       <b-form-group label="Tytuł">
         <b-form-input v-model="Message.subject" placeholder="Tytuł"/>
@@ -22,9 +22,12 @@ export default {
     return {
       response: [],
       errors: [],
+      author: localStorage.email,
       Message: {
         subject: '',
-        content: ''
+        content: '',
+        receiver: ''
+
       }
     }
   },
@@ -33,7 +36,8 @@ export default {
         var params = new URLSearchParams();
       params.append('subject',this.Message.subject)
       params.append('content',this.Message.content)
-
+      params.append('email',this.Message.receiver)
+      params.append('email1',this.author)
       axios.post(`http://localhost:3309/newmail`, params)
         .then(response => {
           this.response = response.data

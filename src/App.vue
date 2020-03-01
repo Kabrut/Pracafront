@@ -27,7 +27,7 @@ import ChatFriends from "@/components/Chat/ChatFriends";
 .Chat{
   display:flex;
   float:right;
-  background-color:rgba(0,0,0,.4);
+  background-color:rgba(0,0,0,.03);
   min-height: 95vh;
   position: sticky;
   top: 3em;

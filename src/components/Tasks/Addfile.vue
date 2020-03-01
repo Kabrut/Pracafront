@@ -1,56 +1,52 @@
 <template>
 <div>
   <b-button v-b-modal.modal-1>Dodaj zadanie</b-button>
-      <b-modal id="modal-1" 
+      <b-modal id="modal-1"
       title="Nowe Zadanie"
-      @ok="wyslij()"
+      @ok="both"
       >
+
   <p> Treść zadania:</p>
           <b-form-textarea v-model="content"/>
-    <b-form-file
-      v-model="file"
-      :state="Boolean(file)"
-      placeholder="Choose a file or drop it here..."
-      drop-placeholder="Drop file here..."
-    ></b-form-file>
-    <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
+          {{errors}}
+          <input type="file" id="file" ref="file" v-on:change="upload()" placeholder="Wybierz">
+
       </b-modal>
+
 </div>
 </template>
 <script>
 import axios from 'axios';
-
 export default {
   methods:{
     data () {
     return {
       response: [],
-      errors: [],
+      errors: $refs.file.name,
       file: '',
       content: ''
-      
+
     }
   },
     wyslij(){
-       var params = new URLSearchParams();
        let formData = new FormData();
-       formData.append('file', this.file[0]);
-       params.append('content',this.content)
-
-       let config={header:{'Content-Type' : 'multipart/form-data'}}
-
-
-      axios.post(`http://localhost:3309/newTask`, [this.params,this.formData])
-        .then(response => {
-          this.response = response.data
-          //console.log(response.data)
-          this.showResponse = true
-          location.reload(true)
+       formData.append('file', this.file)
+         formData.append('content', this.content)
+        axios.post(`http://localhost:3309/newTask`,
+        formData,{headers: {'Content-Type': 'multipart/form-data'}}).then(function(){
+            console.log('success')
+        }).catch(function(){
+            console.log('Failure')
         })
-        .catch(e => {
-          this.errors.push(e)
-        })
-    }
+    },
+      upload() {
+        this.file = this.$refs.file.files[0]
+          this.errors = this.$refs.file.name
+      },
+      both(){
+        this.upload();
+        this.wyslij();
+      }
   }
 }
 </script>

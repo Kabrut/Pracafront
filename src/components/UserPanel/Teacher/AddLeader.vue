@@ -38,9 +38,54 @@
 </template>
 
 <script>
-export default {
+    import Register from '@/sites/Register'
+    export default {
+        name: "AddLeader",
+        data () {
+            return {
+                response: [],
+                errors: [],
+                Register: {
+                    email: '',
+                    name: '',
+                    surname: '',
+                    password: '',
+                    password2:'',
+                    field: '',
+                    group: ''
+                }
+            }
+        },
+        components: {Register},
+        methods:{
+            createUser () {
+                var params = new URLSearchParams();
+                params.append('email',this.Register.email)
+                params.append('password',this.Register.password)
+                params.append('name', this.Register.name )
+                params.append('surname', this.Register.surname )
+                params.append('field', this.Register.field )
+                params.append('group', this.Register.group )
 
-}
+                axios.post(`http://localhost:3309/user`, params)
+                    .then(response => {
+                        this.response = response.data
+                        console.log(response.data)
+                        this.showResponse = true
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
+            },
+            checkpasswords () {
+                if (this.Register.password===this.Register.password2){
+                    this.createUser();
+
+                }else {alert('Hasla nie sa zgodne');
+                }
+            }
+        }
+    }
 </script>
 
 <style scoped>

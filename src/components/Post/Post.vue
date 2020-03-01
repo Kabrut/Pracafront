@@ -6,16 +6,20 @@
               :key="Post.post_id"
       >
         <p><strong>
-        <h3>{{ Post.post_title }}</h3>
+        <p>{{ Post.user.name }} {{Post.user.surname}}</p>
         </strong>
         </p>
+
       <b-card>
+
         <div class="contentbox">
           <p>{{ Post.post_content }}</p>
 
         </div>
-      </b-card> 
+      </b-card>
+
       <Comment/>
+          <new-comment/>
       </b-card>
     </div>
 
@@ -28,9 +32,10 @@
 import Comment from './Comment'
 import NewPost from './NewPost'
 import axios from 'axios'
+import NewComment from "./NewComment";
 export default {
   name: 'Posts',
-  components: { NewPost, Comment},
+  components: {NewComment, NewPost, Comment},
   data () {
     return {
       commentkey: 0,
