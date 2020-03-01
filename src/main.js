@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vSelect from 'vue-select'
 import axios from 'axios'
+import store from './store/store'
+
 
 
 Vue.use(axios)

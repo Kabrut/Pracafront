@@ -55,8 +55,7 @@ export default {
            localStorage.field = this.response[2];
            localStorage.name = this.response[3];
            localStorage.surname = this.response[4];
-
-         //   this.$router.push('/')
+           this.$store.dispatch('login', this.Login.email,this.response[0],this.response[1],this.response[2],this.response[3],this.response[4]).then(() => this.$router.push('/'))
         })
         .catch(e => {
           this.errors.push(e)
