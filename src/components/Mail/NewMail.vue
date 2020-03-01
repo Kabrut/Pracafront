@@ -22,7 +22,7 @@ export default {
     return {
       response: [],
       errors: [],
-      author: this.localStorage.email,
+      author: localStorage.email,
       Message: {
         subject: '',
         content: '',
@@ -38,8 +38,6 @@ export default {
       params.append('content',this.Message.content)
       params.append('email',this.Message.receiver)
       params.append('email1',this.author)
-
-
       axios.post(`http://localhost:3309/newmail`, params)
         .then(response => {
           this.response = response.data

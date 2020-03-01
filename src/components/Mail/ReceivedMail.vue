@@ -26,7 +26,7 @@ export default {
   },
     methods: {
     showMail () {
-      axios.get(`http://localhost:3309/showMail`)
+      axios.get(`http://localhost:3309/showMsg`)
         .then(response => {
           this.MailContent = response.data.reverse()
         })
