@@ -3,11 +3,12 @@
     <NewPost/>
     <div class="content" >
       <b-card v-for="Post in Posts"
-              :key="Post.post_id"
+              :key="Post.postid"
       >
         <p><strong>
-        <p>{{ Post.user.name }} {{Post.user.surname}}</p>
+        <p>{{ Post.user.name }} {{Post.user.surname}} <b-button variant="outline" class="delete" @click="deletePost(Post.postid)"><img src="@/assets/trash.png"/></b-button></p>
         </strong>
+
         </p>
 
       <b-card>
@@ -17,9 +18,10 @@
 
         </div>
       </b-card>
-
-      <Comment/>
-          <new-comment/>
+      <div class="comment">
+      <Comment class="comment"/>
+          <new-comment class="comment"/>
+      </div>
       </b-card>
     </div>
 
@@ -54,12 +56,21 @@ export default {
         .catch(e => {
           this.errors.push("cos nie pyklo")
         })
-    }
-  },
+    },
+
   updateComponent: function () {
     this.post_id += 1
     this.commentkey += 1
   },
+  deletePost (id) {
+    axios.delete(`http://localhost:3309/deletePost${id}`)
+            .then(response => {
+              console.log(response)
+            })
+
+    this.$emit('delpost')
+  }
+},
   mounted () {
     this.showPost()
   /*  setInterval(function (){
@@ -79,8 +90,12 @@ export default {
 .content{
   width:100%;
 }
-  .delete_post{
+  .delete{
     float:right;
     display: block;
+  }
+  .comment{
+    display:inline-block;
+    float:left;
   }
 </style>

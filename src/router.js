@@ -1,24 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './sites/Home.vue'
-import store from './store/store'
 Vue.use(Router)
-
-const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/')
-}
-
-const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/Login')
-}
 
 export default new Router({
   mode: 'history',
@@ -49,7 +32,7 @@ export default new Router({
       path: '/grades',
       name: 'grades',
       component: () => import(/* webpackChunkName: "grades" */ './sites/Grades.vue'),
-      beforeEnter: ifAuthenticated,
+
     },
     {
       path: '/Mail',

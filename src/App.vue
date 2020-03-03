@@ -9,6 +9,7 @@
       <router-link to="/Login"><p>Login</p></router-link>
       <router-link to="/Posts"><p>Posts</p></router-link>
       <router-link to="/UserPanel"><p>UserPanel</p></router-link>
+      <p @click="Logout()">Logout</p>
     </div>
     <div class="Chat">
     <ChatFriends/>
@@ -20,7 +21,13 @@
 import ChatFriends from "@/components/Chat/ChatFriends";
     export default {
         name: "App",
-        components: {ChatFriends}
+        components: {ChatFriends},
+      methods:{
+          Logout(){
+            localStorage.clear();
+            this.$router.push("/Login");
+          }
+      }
     }
 </script>
 <style>

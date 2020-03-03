@@ -13,7 +13,26 @@
         </b-table>
     </b-tab>
     <b-tab title="Wysłane">
-    <b-table striped outlined selectable select-mode='single' hover :items="sended" :fields="fields" @row-selected="toChild"></b-table>
+    <b-table striped outlined selectable select-mode='single' hover :items="sended" :fields="fields" >
+        <template v-slot:cell(button)="row">
+            <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+                {{ row.detailsShowing ? 'Ukryj' : 'Pokaż'}} Wiadomość
+            </b-button>
+        </template>
+        <template v-slot:row-details="row">
+            <b-card>
+                <b-row class="mb-2">
+                    <b-col sm="3" class="text-sm-right"><b>Tytuł:</b></b-col>
+                    <b-col>{{ row.item.subject}}</b-col>
+                </b-row>
+
+                <b-row class="mb-2">
+                    <b-col sm="3" class="text-sm-right"><b>Zawartość:</b></b-col>
+                    <p class="pre-formatted"> {{ row.item.content }}</p>
+                </b-row>
+            </b-card>
+        </template>
+    </b-table>
     </b-tab>
     <b-tab title="Sprawdzone">
    <b-table striped outlined selectable select-mode='single' hover :items="items" :fields="fields" @row-selected="toChild"><input type="checkbox"/></b-table>
@@ -21,19 +40,10 @@
     <b-tab title-link-class="newmail" title="Nowa wiadomość" >
 
       <NewMail/>
-      <!-- <b-form-group label="Odbiorca">
-        <b-form-input placeholder="Odbiorca"/>
-      </b-form-group>
-      <b-form-group label="Wiadomość">
-        <b-form-textarea placeholder="Treść" rows="10" max-rows="25"/>
-      </b-form-group> -->
 
     </b-tab>
   </b-tabs>
-  <div>
-    
-    
-</div>
+
 </div>
 </template>
 
@@ -47,9 +57,12 @@ export default {
       return {
         // Note `isActive` is left out and will not appear in the rendered table
         fields: [ {key: 'checkbox', label: ''},
-            {key: 'msgid', label:'Data'},
+            {key: 'date', label:'Data'},
         {key: 'user.mail', label:'Adresat'},
-        {key:'subject',label:"Temat"}],
+        {key:'subject',label:"Temat"},
+            {key: 'user1.field', label:"Kierunek"},
+            {key:'user1.year', label: "Rok"},
+            {key:'button',label:''}],
           sended:[],
           receive:[],
         items: [],
@@ -108,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+    .pre-formatted {
+        white-space: pre;
+    }
 #MailBox{
     width:100%;
 }

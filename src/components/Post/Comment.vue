@@ -2,8 +2,8 @@
   <div class="commentbox">
     <b-button
       v-b-toggle.collapse-3
-      variant="primary"
-      > Pokaż komentarze</b-button>
+      variant="none"
+      > <img src="@/assets/comment.png"/></b-button>
         <div class="loop" v-for="Comment in Comments" v-bind:key="Comment.postid">
       <b-collapse
       id="collapse-3"

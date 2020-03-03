@@ -1,23 +1,22 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template  xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div class="chat">
     <b-card no-body>
        <b-tabs card>
-        <b-tab v-for="i in tabs" :key="'dyn-tab-' + i" :title="imie[i].name">
-         <div class="messages" v-for="j in Chat" :key="'dyn-msg'+j">
-           <div class="send">
-               <b-badge variant="secondary" >
-                   <div class="wrap">{{Chat.message}}</div>
+        <b-tab v-for="tab in tabs" :key="'dyn-tab-' + tab" :title="imie[tab].name">
+            <template v-slot:title>
+               <strong>{{imie[tab].name}}</strong><b-button variant="none" @click="closeTab(tab)"><b>X</b></b-button>
+            </template>
+         <div class="messages" v-for="message in Chat" v-if="(message.user.mail === localemail && message.user1.mail === imie[tab].mail) || (message.user1.mail === localemail && message.user.mail === imie[tab].mail) ">
+           <div class="send" >
+               <b-badge variant="secondary" v-if="(message.user.mail === localemail && message.user1.mail === imie[tab].mail)" >
+                   <div class="wrap">{{message.content}}</div>
                </b-badge>
            </div>
-          <div class="received">
-              <b-badge variant="primary">Tak będzie wyglądała wiadomość otrzymana</b-badge>
+          <div class="received" v-if="(message.user1.mail === localemail && message.user.mail === imie[tab].mail)">
+              <b-badge variant="primary" v-if="message.content !==' '">{{message.content}}</b-badge>
           </div>
           </div>
-            {{imie[i].mail}}
-          <b-input v-model="Chat.message" @keyup.enter="send(imie[i].mail)"/>
-          <b-button size="sm" variant="danger" class="float-right" @click="closeTab(i)">
-            X
-          </b-button>
+          <b-input v-model="Chat.message" @keyup.enter="send(imie[tab].mail)"/>
         </b-tab>
         <template v-slot:empty>
           <div class="text-center text-muted">
@@ -27,7 +26,7 @@
 
       </b-tabs>
         <b-table-simple striped hover responsive>
-            <b-button block href="#" v-b-toggle.accordion-1 variant="info">Accordion 1</b-button>
+            <b-button block href="#" v-b-toggle.accordion-1 variant="info">Studenci</b-button>
            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
                <b-card-body>
                    <b-table striped hover :items="List" selectable select-mode='single' @row-selected="newTab" :fields="fields">
@@ -36,7 +35,7 @@
 
                </b-card-body>
            </b-collapse>
-            <b-button block href="#" v-b-toggle.accordion-2 variant="info">Accordion 2</b-button>
+            <b-button block href="#" v-b-toggle.accordion-2 variant="info">Wykladowcy</b-button>
             <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                 <b-card-body>
                     <b-table striped hover :items="List" :fields="fields"/>
@@ -67,7 +66,8 @@ export default {
           message: "",
 
         },
-          imie:[]
+          imie:[],
+          localemail: localStorage.email
       }
     },
     methods: {
@@ -81,8 +81,6 @@ export default {
       newTab(item) {
           this.imie[this.tabCounter] = item[0]
         this.tabs.push(this.tabCounter++)
-
-
       },
       send(name) {
           var params = new URLSearchParams();
@@ -100,20 +98,25 @@ export default {
                   this.errors.push(e)
               })
       },
+        getChat(){
+          var params = new URLSearchParams;
+            params.append('email',localStorage.email)
+                axios.get(`http://localhost:3309/showChat`,{params})
+                    .then(response => {
+                        var sorted = response.data
+                        sorted.sort(function (a,b){
+                            if (a.time > b.time) return 1;
+                            if (a.time < b.time) return -1;
+                            return 0
+                        });
+                        this.Chat = sorted;
+                        console.log(response.Chat)
+                    })
+                    .catch(e => {
+                        this.errors.push("cos nie pyklo")
+                    })
 
-      //   this.Chat.message=this.Chat.messagewrited,
-      //   this.msgs.push(this.msgCounter++),
-      // params.push('subject',this.Chat.message)
-      // axios.post(`http://localhost:3309/newchat`, params)
-      //   .then(response => {
-      //     this.response = response.data
-      //     console.log(response.data)
-      //     this.showResponse = true
-      //   })
-      //   .catch(e => {
-      //     this.errors.push(e)
-      //   })
-
+        },
         getList(){
             axios.get(`http://localhost:3309/getList`)
                 .then(response => {
@@ -122,10 +125,14 @@ export default {
                 .catch(e => {
                     this.errors.push("cos nie pyklo")
                 })
+        },
+        wyslane(user) {
+            user===localStorage.email;
         }
     },
     mounted() {
         this.getList()
+        this.getChat();
     }
 }
 </script>

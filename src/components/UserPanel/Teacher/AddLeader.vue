@@ -14,20 +14,20 @@
                         <b-form-group label="Nazwisko">
                             <b-form-input v-model="Register.surname" type='text' placeholder="Nazwisko"/>
                         </b-form-group>
-                        <b-form-group label="Hasło">
-                            <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
-                        </b-form-group>
-                        <b-form-group label="Potwierdź hasło">
-                            <b-form-input v-model="Register.password2" type='password' placeholder="Hasło"/>
-                        </b-form-group>
                         <b-form-group label="Kierunek">
                             <b-form-input v-model="Register.field" type='field' placeholder="Kierunek"/>
                         </b-form-group>
-                        <b-form-group label="Grupa">
-                            <b-form-input v-model="Register.group" type='group' placeholder="Grupa"/>
+                        <b-form-group label="Grupa ćwiczeniowa">
+                            <b-form-input v-model="Register.group" type='group' placeholder="Grupa Ćwiczeniowa"/>
+                        </b-form-group>
+                        <b-form-group label="Grupa laboratoryjna">
+                            <b-form-input v-model="Register.lab" type='lab' placeholder="Grupa laboratoryjna"/>
+                        </b-form-group>
+                        <b-form-group label="Rok">
+                            <b-form-input v-model="Register.year" type='year' placeholder="Rok"/>
                         </b-form-group>
                         <div class="submit">
-                            <b-button @click="checkpasswords()">Zarejestruj</b-button>
+                            <b-button @click="createUser()">Zarejestruj</b-button>
                         </div>
                     </b-form>
                 </b-card>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import Register from '@/sites/Register'
     export default {
         name: "AddLeader",
@@ -52,7 +53,9 @@
                     password: '',
                     password2:'',
                     field: '',
-                    group: ''
+                    group: '',
+                    lab:'',
+                    year:'',
                 }
             }
         },
@@ -66,8 +69,10 @@
                 params.append('surname', this.Register.surname )
                 params.append('field', this.Register.field )
                 params.append('group', this.Register.group )
+                params.append('year', this.Register.year )
+                params.append('lab', this.Register.lab )
 
-                axios.post(`http://localhost:3309/user`, params)
+                axios.post(`http://localhost:3309/leader`, params)
                     .then(response => {
                         this.response = response.data
                         console.log(response.data)

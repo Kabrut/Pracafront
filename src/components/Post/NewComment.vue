@@ -2,8 +2,8 @@
     <div>
         <b-button
                 v-b-toggle.collapse-4
-                variant="secondary"
-        > Dodaj Komentarz</b-button>
+                variant="none"
+        > <img src="@/assets/addcomment.png"/></b-button>
         <b-collapse
                 id="collapse-4"
                 class="mt-2"

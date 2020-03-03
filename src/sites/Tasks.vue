@@ -19,7 +19,7 @@ export default {
 </script>
 <style scoped>
 .task{
-  display: inline-block;
+  display: block;
   align-content:center;
 }
 </style>

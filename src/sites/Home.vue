@@ -1,14 +1,21 @@
 <template>
+
   <div class="home">
-    <MenuTiles/>
+    <h2>{{localfield}}</h2>
+    <HomePost/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { mapState, mapActions } from 'vuex'
-import MenuTiles from '@/components/MenuTiles.vue'
+import HomePost from '@/components/HomePage/HomePost.vue'
 export default {
+  data(){
+    return{
+    localfield: localStorage.field,
+    }
+  },
   computed: {
         ...mapState({
             account: state => state.account,
@@ -17,13 +24,12 @@ export default {
     },
   name: 'home',
   components: {
-    MenuTiles
+    HomePost
   }
 }
 </script>
 <style scoped>
 .home{
-  display: flex;
   width:auto;
 }
 </style>

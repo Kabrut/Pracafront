@@ -5,13 +5,15 @@
         <b-card>
     <b-form >
       <b-form-group label="Email">
-        <b-form-input v-model="Register.email" type='email' placeholder="Email"/>
+        <b-form-input v-model="email" type='email' placeholder="Email"/>
       </b-form-group>
+        <b-button class="submit" v-if="!userchecked" @click="getUser">Sprawdź</b-button>
+        <div class="form"  v-if="userchecked">
       <b-form-group label="Imie">
-        <b-form-input v-model="Register.name" type='text' placeholder="Imie"/>
+        <b-form-input v-model="Register.name" readonly type='text' placeholder="Imie"/>
       </b-form-group>
       <b-form-group label="Nazwisko">
-        <b-form-input v-model="Register.surname" type='text' placeholder="Nazwisko"/>
+        <b-form-input v-model="Register.surname" readonly type='text' placeholder="Nazwisko"/>
       </b-form-group>
       <b-form-group label="Hasło">
         <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
@@ -20,13 +22,14 @@
         <b-form-input v-model="Register.password2" type='password' placeholder="Hasło"/>
       </b-form-group>
       <b-form-group label="Kierunek">
-        <b-form-input v-model="Register.field" type='field' placeholder="Kierunek"/>
+        <b-form-input v-model="Register.field" readonly type='field' placeholder="Kierunek"/>
       </b-form-group>
       <b-form-group label="Grupa">
-        <b-form-input v-model="Register.group" type='group' placeholder="Grupa"/>
+        <b-form-input v-model="Register.groups" readonly type='group' placeholder="Grupa"/>
       </b-form-group>
-      <div class="submit">
-      <b-button @click="checkpasswords()">Zarejestruj</b-button>
+        </div>
+      <div class="submit" >
+      <b-button v-if="userchecked" @click="checkpasswords">Zarejestruj</b-button>
       <router-link to="/Login"><b-button>Powrót</b-button></router-link>
       </div>
     </b-form>
@@ -43,28 +46,18 @@ export default {
     return {
       response: [],
       errors: [],
-      Register: {
-        email: '',
-        name: '',
-        surname: '',
-        password: '',
-        password2:'',
-        field: '',
-        group: ''
-      }
+        userchecked: false,
+      Register: [],
+        email:''
     }
   },
   methods: {
     createUser () {
       var params = new URLSearchParams();
-      params.append('email',this.Register.email)
-      params.append('password',this.Register.password)
-      params.append('name', this.Register.name )
-      params.append('surname', this.Register.surname )
-      params.append('field', this.Register.field )
-      params.append('group', this.Register.group )
+      params.append('email',this.email)
+        params.append('password', this.Register.password)
 
-      axios.post(`http://localhost:3309/user`, params)
+      axios.post(`http://localhost:3309/addPassword`, params)
         .then(response => {
           this.response = response.data
           console.log(response.data)
@@ -76,11 +69,27 @@ export default {
     },
     checkpasswords () {
       if (this.Register.password===this.Register.password2){
+          console.log(this.Register.password2)
+          console.log(this.Register.password)
         this.createUser();
         
       }else {alert('Hasla nie sa zgodne');
       }
-    }
+    },
+      getUser(){
+        var params = new URLSearchParams;
+        params.append('email',this.email)
+          axios.get(`http://localhost:3309/getUser`,{params})
+              .then(response => {
+                  this.userchecked = true
+              this.Register = response.data
+              console.log(response.Register)
+
+          })
+              .catch(e => {
+                  this.errors.push("cos nie pyklo")
+              })
+      }
   }
 }
 

@@ -16,8 +16,7 @@
       <router-link to="/Register"><b-button>Zarejestruj</b-button></router-link>
       </div>
     </b-form>
-            {{response[0]}}
-            {{cos[1]}}
+
         </b-card>
     </div>
 </div>
@@ -25,7 +24,7 @@
 
 <script>
 import axios from 'axios'
-import { AUTH_REQUEST } from "../store/auth";
+
 export default {
   data() {
     return {
@@ -43,7 +42,7 @@ export default {
     var params = new URLSearchParams();
     params.append('email',this.Login.email)
     params.append('password',this.Login.password)
-
+    let vm = this;
     axios.post(`http://localhost:3309/login`, params)
         .then(response => {
           this.response = response.data
@@ -55,10 +54,13 @@ export default {
            localStorage.field = this.response[2];
            localStorage.name = this.response[3];
            localStorage.surname = this.response[4];
-           this.$store.dispatch('login', this.Login.email,this.response[0],this.response[1],this.response[2],this.response[3],this.response[4]).then(() => this.$router.push('/'))
-        })
+
+
+
+
+        }).then(this.$router.push('/'))
         .catch(e => {
-          this.errors.push(e)
+         console.log(e)
         })
   }
   }

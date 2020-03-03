@@ -4,7 +4,7 @@
     <MailBox v-on:selectedMsg="msg"/>
     </div>
     
-    <div class="ReceivedMail">
+<!--    <div class="ReceivedMail">-->
     <ReceivedMail :child='selectedMsg'/></div>
 </div>
 </template>
@@ -36,6 +36,6 @@
     width:50%;
 }
 .mailbox{
-    width:50%;
+    width:100%;
 }
 </style>

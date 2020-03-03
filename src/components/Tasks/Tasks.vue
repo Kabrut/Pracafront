@@ -2,18 +2,14 @@
     <div class="tasks">
         <b-card v-for="Task in Tasks"
               :key="Task.taskId">
-            <p>
                 {{Task.content}}
-                <button v-on:click="fileConvert(Task.blob, Task.type, Task.filename)">pobierz</button>
-            <p >{{Task.filename}}</p>
+                <b-button v-on:click="fileConvert(Task.blob, Task.type, Task.filename)" variant="outline-info">{{Task.filename}}<img src="@/assets/download.png"/></b-button>
             <p>{{error}}</p>
             <b-button variant="info" v-b-modal="modalId(Task.taskId)">Szczegóły</b-button>
             <b-modal :id="modalId(Task.taskId)" title="Szczegóły zadania">
                 {{Task.content}}
-
                 <Response/>
             </b-modal>
-            </p>
 
         </b-card>
         {{errors}}
