@@ -60,7 +60,7 @@ export default {
             {key: 'date', label:'Data'},
         {key: 'user.mail', label:'Adresat'},
         {key:'subject',label:"Temat"},
-            {key: 'user1.field', label:"Kierunek"},
+            {key: 'user1.field.name', label:"Kierunek"},
             {key:'user1.year', label: "Rok"},
             {key:'button',label:''}],
           sended:[],

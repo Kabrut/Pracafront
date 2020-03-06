@@ -147,7 +147,7 @@ export default {
   overflow:auto;
 }
 .chat{
-  width:20rem;
+  width:25rem;
 
 }
 .received{

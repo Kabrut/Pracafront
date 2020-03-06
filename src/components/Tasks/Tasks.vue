@@ -1,14 +1,17 @@
 <template>
     <div class="tasks">
         <b-card v-for="Task in Tasks"
-              :key="Task.taskId">
+              :key="Task.taskId"
+    >
                 {{Task.content}}
-                <b-button v-on:click="fileConvert(Task.blob, Task.type, Task.filename)" variant="outline-info">{{Task.filename}}<img src="@/assets/download.png"/></b-button>
+                <b-button v-if="Task.blob !== null"  v-on:click="fileConvert(Task.blob, Task.type, Task.filename)" variant="outline-dark">{{Task.filename}}<img src="@/assets/download.png"/></b-button>
             <p>{{error}}</p>
             <b-button variant="info" v-b-modal="modalId(Task.taskId)">Szczegóły</b-button>
+            <ResponseList v-on:key="Task.taskId" :child='Task' v-on:event_child="eventChild" />
             <b-modal :id="modalId(Task.taskId)" title="Szczegóły zadania">
                 {{Task.content}}
-                <Response/>
+                <Response :key="Task.taskId" :child='Task.taskId'/>
+
             </b-modal>
 
         </b-card>
@@ -20,8 +23,9 @@
 import axios from "axios"
 import {base64ToArrayBuffer,saveByteArray} from "./filedownload.js"
 import Response from "./Response"
+import ResponseList from "./ResponseList";
 export default {
-    components:{Response},
+    components:{ResponseList, Response},
     data () {
     return {
       TaskContent: "",
@@ -49,31 +53,23 @@ export default {
           this.errors.push("cos nie pyklo")
         })
 
-        // axios({
-        //     url: 'http://localhost:3309/showTasks',
-        //     method: 'GET',
-        //     responseType: 'blob',
-        // }).then((response) => {
-        //
-        //     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        //     var fileLink = document.createElement('a');
-        //     this.Tasks = response.data.reverse()
-        //     fileLink.href = fileURL;
-        //     fileLink.setAttribute('download', response.data[0].filename);
-        //     document.body.appendChild(fileLink);
-        //
-        //     fileLink.click();
-        // });
     },
         fileConvert(file,type,name){
             var sampleArr =  base64ToArrayBuffer(file);
             saveByteArray(name, sampleArr,type);
+
+        },
+        eventChild(items){
+            console.alert(items)
+        },
+        ShowList(){
 
         }
 
     },
   mounted () {
     this.showMail()
+
   }
 }
 </script>

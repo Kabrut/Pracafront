@@ -36,6 +36,7 @@ export default {
           //console.log(response.data)
           this.showResponse = true
          // location.reload(true)
+            this.$emit("done")
         })
         .catch(e => {
           this.errors.push(e)

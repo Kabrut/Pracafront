@@ -16,8 +16,16 @@
           return{
               file: '',
               content:'',
-              numer:'1'
+
           }
+        },
+        props:{
+            child:{
+                type:String,
+                default(){
+                    return ''
+                }
+            }
         },
         name: "Response",
         methods:{
@@ -26,7 +34,7 @@
                 formData.append('file', this.file)
                 formData.append('content', this.content)
                 formData.append('email',localStorage.email)
-                formData.append('taskid', this.numer)
+                formData.append('taskid', this.child)
                 axios.post(`http://localhost:3309/newTaskResponse`,
                     formData,{headers: {'Content-Type': 'multipart/form-data'}}).then(function(){
                     console.log('success')

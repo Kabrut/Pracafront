@@ -5,7 +5,6 @@
       title="Nowe Zadanie"
       @ok="both"
       >
-
   <p> Treść zadania:</p>
           <b-form-textarea v-model="content"/>
           {{errors}}
@@ -24,7 +23,8 @@ export default {
       response: [],
       errors: $refs.file.name,
       file: '',
-      content: ''
+      content: '',
+        fileava: false
 
     }
   },
@@ -42,11 +42,27 @@ export default {
       upload() {
         this.file = this.$refs.file.files[0]
           this.errors = this.$refs.file.name
+
       },
       both(){
-        this.upload();
-        this.wyslij();
+        if (this.file){
+            this.wyslij();
+        }else{
+            this.wyslij1();
+        }
+
+      },
+      wyslij1(){
+        var params = new URLSearchParams;
+        params.append('content', this.content)
+          axios.post(`http://localhost:3309/newTask1`,
+              params).then(function(){
+              console.log('success')
+          }).catch(function(){
+              console.log('Failure')
+          })
       }
+
   }
 }
 </script>

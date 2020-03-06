@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-button
+        <b-button :key="child.postid"
                 v-b-toggle.collapse-4
                 variant="none"
         > <img src="@/assets/addcomment.png"/></b-button>
@@ -22,7 +22,13 @@
         data () {
             return {
                 content: '',
-                id: 15
+            }
+        },
+        props:{
+            child:{
+                default(){
+                    return ''
+                }
             }
         },
         methods:{
@@ -30,7 +36,7 @@
                 var params = new URLSearchParams();
                 params.append('content',this.content);
                 params.append('email', localStorage.email);
-                params.append('id', this.id)
+                params.append('id', this.child.postid)
 
 
                 axios.post(`http://localhost:3309/newcomment`, params)

@@ -4,7 +4,7 @@
       v-b-toggle.collapse-3
       variant="none"
       > <img src="@/assets/comment.png"/></b-button>
-        <div class="loop" v-for="Comment in Comments" v-bind:key="Comment.postid">
+        <div class="loop" v-for="Comment in child.commentList" v-bind:key="Comment.postid">
       <b-collapse
       id="collapse-3"
       class="mt-2"
@@ -39,6 +39,13 @@ export default {
       response: []
     }
   },
+  props:{
+    child:{
+      default(){
+        return ''
+      }
+    }
+  },
   methods: {
     deleteComment: async function (comment_id) {
       axios.delete(`http://localhost:8000/comments/${comment_id}`)
@@ -50,7 +57,7 @@ export default {
       this.showComment()
     },
     showComment () {
-      axios.get(`http://localhost:3309/showComment/${15}`)
+      axios.get(`http://localhost:3309/showComment/${this.props.child.postid}`)
         .then(response => {
           this.Comments = response.data.reverse()
         })

@@ -7,6 +7,8 @@
        
         <b-tab title="Dodaj liste studentów"> <div class="AddList"><AddStudentList/></div></b-tab>
         <b-tab title="Dodaj starostę grupy"><AddLeader/></b-tab>
+        <b-tab title="Dodaj nauczyciela"><add-teacher/></b-tab>
+        <b-tab title="Dodaj Kierunek i Przedmiot"><add-field/></b-tab>
     </b-tabs>
     </div>
 </template>
@@ -17,8 +19,12 @@ import Groups from '../components/UserPanel/Teacher/Groups'
  import Global from '../components/UserPanel/Global'
  import AddStudentList from '../components/UserPanel/AddStudentList'
 import AddLeader from "../components/UserPanel/Teacher/AddLeader";
+import AddTeacher from "../components/UserPanel/admin/AddTeacher";
+import AddField from "../components/UserPanel/admin/AddField";
 export default {
     components:{
+        AddField,
+        AddTeacher,
         AddLeader,
        Global, StudentList, Groups, AddStudentList
     } 
@@ -27,6 +33,6 @@ export default {
 
 <style scoped>
 .UserPanel{
-    width:80%;
+  display:flex;
 }
 </style>

@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-     
-    <div id="nav">
-      <router-link to="/"><p>Home</p></router-link> 
-      <router-link to="/Grades"><p>Grades</p></router-link>
-      <router-link to="/Mail"><p>Mail</p></router-link> 
-      <router-link to="/Tasks"><p>Tasks</p></router-link>
-      <router-link to="/Login"><p>Login</p></router-link>
-      <router-link to="/Posts"><p>Posts</p></router-link>
-      <router-link to="/UserPanel"><p>UserPanel</p></router-link>
-      <p @click="Logout()">Logout</p>
-    </div>
+
+    <b-navbar variant="light" sticky type="light" >
+      <b-navbar-nav acenter >
+        <b-nav-item router-link to="/">Home</b-nav-item>
+        <b-nav-item router-link to="/Grades">Grades</b-nav-item>
+        <b-nav-item router-link to="/Mail">Mail</b-nav-item>
+        <b-nav-item router-link to="/Tasks">Tasks</b-nav-item>
+        <b-nav-item router-link to="/Login">Login</b-nav-item>
+        <b-nav-item router-link to="/Posts">Posts</b-nav-item>
+
+
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item router-link to="/UserPanel">Panel użytkownika</b-nav-item>
+      <b-nav-item  @click="Logout">Logout</b-nav-item></b-navbar-nav>
+    </b-navbar>
+
     <div class="Chat">
     <ChatFriends/>
     </div>
@@ -37,19 +43,8 @@ import ChatFriends from "@/components/Chat/ChatFriends";
   background-color:rgba(0,0,0,.03);
   min-height: 95vh;
   position: sticky;
-  top: 3em;
+  top: 1em;
 }
-#nav p{
-  display:inline!important;
-  background:gray;
-  padding:20px;
-  margin:3px;
-}
-#nav{
-  text-align: center;
-  background: #0033a0;
-  height:3em;
-  padding:1px;
-}
+
 
 </style>

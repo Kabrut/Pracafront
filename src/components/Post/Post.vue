@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NewPost/>
+    <NewPost @done = "done()"/>
     <div class="content" >
       <b-card v-for="Post in Posts"
               :key="Post.postid"
@@ -19,8 +19,8 @@
         </div>
       </b-card>
       <div class="comment">
-      <Comment class="comment"/>
-          <new-comment class="comment"/>
+      <Comment :key='Post.postid' :child='Post' class="comment"/>
+          <new-comment :child = 'Post' :key='Post.postid' class="comment"/>
       </div>
       </b-card>
     </div>
@@ -66,10 +66,14 @@ export default {
     axios.delete(`http://localhost:3309/deletePost${id}`)
             .then(response => {
               console.log(response)
+              this.showPost()
             })
 
     this.$emit('delpost')
-  }
+  },
+    done() {
+      this.showPost()
+    },
 },
   mounted () {
     this.showPost()
