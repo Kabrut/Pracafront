@@ -56,6 +56,7 @@ export default {
            localStorage.surname = this.response[4];
            localStorage.year = this.response[5];
            localStorage.lab = this.response[6];
+           localStorage.Subject = this.response[7];
         }).then(this.$router.push('/'))
         .catch(e => {
          console.log(e)

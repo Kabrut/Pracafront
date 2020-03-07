@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-    <h3><center>Rejestracja</center></h3>
+    <h3>Rejestracja</h3>
     <div class="form">
         <b-card>
     <b-form >
@@ -16,10 +16,10 @@
         <b-form-input v-model="Register.surname" readonly type='text' placeholder="Nazwisko"/>
       </b-form-group>
       <b-form-group label="Hasło">
-        <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
+        <b-form-input v-model="password" type='password' placeholder="Hasło"/>
       </b-form-group>
       <b-form-group label="Potwierdź hasło">
-        <b-form-input v-model="Register.password2" type='password' placeholder="Hasło"/>
+        <b-form-input v-model="password2" type='password' placeholder="Hasło"/>
       </b-form-group>
       <b-form-group label="Kierunek">
         <b-form-input v-model="Register.field" readonly type='field' placeholder="Kierunek"/>
@@ -33,6 +33,7 @@
       <router-link to="/Login"><b-button>Powrót</b-button></router-link>
       </div>
     </b-form>
+            {{password}}
         </b-card>
     </div>
 </div>
@@ -44,18 +45,20 @@ export default {
    
   data () {
     return {
-      response: [],
-      errors: [],
+        response: [],
+        errors: [],
         userchecked: false,
-      Register: [],
-        email:''
+        Register: [],
+        email:'',
+        password:'',
+        password2:''
     }
   },
   methods: {
     createUser () {
       var params = new URLSearchParams();
       params.append('email',this.email)
-        params.append('password', this.Register.password)
+        params.append('password', this.password)
 
       axios.post(`http://localhost:3309/addPassword`, params)
         .then(response => {
@@ -69,8 +72,8 @@ export default {
     },
     checkpasswords () {
       if (this.Register.password===this.Register.password2){
-          console.log(this.Register.password2)
-          console.log(this.Register.password)
+          console.log(this.password2)
+          console.log(this.password)
         this.createUser();
         
       }else {alert('Hasla nie sa zgodne');

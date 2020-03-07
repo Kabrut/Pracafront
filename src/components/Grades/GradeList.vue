@@ -1,42 +1,46 @@
 <template>
 <div id="grade">
 <b-card class="table">
-   <b-table-simple striped hover responsive>
-        <b-thead head-variant="dark">
-           <b-tr>
-               <b-th colspan="4">Przedmiot</b-th>
-               <b-th colspan="2">Ocena</b-th>
-           </b-tr>
-        </b-thead>
-         <b-tbody>
-      <b-tr>
-     
-        <b-th class="text-right">Antwerp</b-th>
-        <b-td>{{grades}}</b-td>
-        <b-td>22</b-td>
-        <b-td>43</b-td>
-        <b-td variant="success">72</b-td>
-        <b-td>23</b-td>
-      </b-tr>
-      <b-tr>
-        
-        <b-td>22</b-td>
-        <b-td>43</b-td>
-        <b-td variant="success">72</b-td>
-        <b-td>23</b-td>
-      </b-tr>
-      </b-tbody>
-   </b-table-simple>
+   <b-table striped hover :items="items" :fields="fields" responsive>
+
+   </b-table striped hover>
    
 </b-card>
 </div> 
 
 </template>
 <script>
+    import axios from "axios";
 export default {
-    props: {
-       grades:[5, 4, 6, 8, 2, 4]
+
+    data() {
+        return{
+            fields: [
+                {key: 'grade', label: 'Ocena'},
+                {key: 'date', label:'Data'},
+                {key: 'comment', label:'Komentarz'},
+                {key:'przedmiot.name',label:"Przedmiot"}],
+                items:[],
+            }
+        },
+    methods:{
+        getGrades(){
+            var params = new URLSearchParams;
+            params.append('email', localStorage.email)
+            axios.get(`http://localhost:3309/getGrades`, {params})
+                .then(response => {
+                    this.items = response.data.reverse()
+                    this.$emit('responseid',this.items)
+                })
+                .catch(e => {
+                    this.errors.push("cos nie pyklo")
+                })
+        }
+},
+    mounted(){
+        this.getGrades();
     }
+
 }
 </script>
 <style scoped>

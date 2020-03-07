@@ -10,10 +10,7 @@
                     </b-button>
                 </template>
                     <template v-slot:cell(dropdown)="row">
-                        <b-form-select v-model="row" :options="options"></b-form-select>
-                    </template>
-                    <template v-slot:call(grade) = "row">
-                        <b-button>Dodaj ocenę</b-button>
+                        <b-form-select v-model="grade" :options="options"></b-form-select>
                     </template>
                     <template v-slot:cell(comment)="row">
                         <b-form-textarea v-model="comment"></b-form-textarea>
@@ -21,8 +18,11 @@
                     <template v-slot:cell(checkbox)="row">
                         <b-form-checkbox></b-form-checkbox>
                     </template>
+                    <template v-slot:cell(grade) = "row">
+                        <b-button @click="addGrade" variant="outline-danger">Dodaj ocenę</b-button>
+                    </template>
                 </b-table>
-                <b-button size="sm">Dodaj oceny </b-button>
+
             </b-card>
 
         </b-collapse>
@@ -44,10 +44,11 @@
                     {key: 'user.surname',label: "nazwisko"},
                      {key: 'button', label:"załącznik"},
                     {key: 'dropdown', label:"ocena"},
+                    {key:'comment', label:" Komentarz "},
                     {key:'grade', label:" "},
-                    {key:'comment', label:" Komentarz "}
                 ],
                 selected:null,
+                grade: null,
                 options:[
                     {value:'2'  , text:'2'},
                     {value:'3'  , text:'3'},
@@ -83,6 +84,19 @@
                 var sampleArr =  base64ToArrayBuffer(file);
                 saveByteArray(name, sampleArr,type);
 
+            },
+            addGrade(){
+                var params = new URLSearchParams;
+                params.append('comment', this.comment)
+                params.append('grade', this.grade)
+                params.append('taskid', this.child.taskId)
+                params.append('email', localStorage.email)
+
+                axios.post(`http://localhost:3309/addGrade`, params).then(response=>{
+                    console.log("success")
+                }).catch(e=>{
+                    this.errors.push(e);
+                })
             }
         },
         mounted() {

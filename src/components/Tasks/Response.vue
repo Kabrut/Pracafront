@@ -4,7 +4,7 @@
         <b-textarea v-model="content"/>
         <input  type="file" id="file" ref="file" v-on:change="upload()"/>
         <b-button @click="both">Wyslij</b-button>
-        <b-card></b-card>
+
 
     </div>
 </template>

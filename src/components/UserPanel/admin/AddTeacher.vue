@@ -14,7 +14,9 @@
                         <b-form-group label="Nazwisko">
                             <b-form-input v-model="Register.surname" type='text' placeholder="Nazwisko"/>
                             <pre/>
-                            <b-col lg="6" class="my-1">
+                            <div class="fieldss">
+                                <b-card title="Przedmioty">
+                            <b-col lg="10" class="my-1">
                                 <b-input-group size="sm">
                                     <b-form-input
                                             v-model="filter"
@@ -27,16 +29,20 @@
                                     </b-input-group-append>
                                 </b-input-group>
                         </b-col>
-                            <b-table :filter="filter" sticky-header :items="items" :fields="field">
+
+                             <b-table :filter="filter" sticky-header :items="items" :fields="field">
                                 <template v-slot:cell(checkbox)="row">
                                     <b-button v-model="row.checkbox" @click="checked(row.item)">Dodaj</b-button>
                                 </template>
-                            </b-table>
-                            <b-table :items="selected" v-model="selected"></b-table>
+                            </b-table></b-card>
+                                <h1 style="margin-top:5em">⇨</h1>
+                       <b-card title="Wybrane"><b-table :items="selected" :fields="fields">
+                            <template v-slot:cell(button)="row">
+                                <b-button @click="clear(row.item)">Usuń</b-button>
+                            </template>
+                        </b-table></b-card> </div>
                         </b-form-group>
-                        {{selected}}
                         <div class="submit">
-                            <b-button @click="clear()">Wyczyść wybrane przedmioty</b-button>
                             <b-button @click="createUser()">Zarejestruj</b-button>
                         </div>
                     </b-form>
@@ -55,6 +61,8 @@
             return {
                 field:[{key:'name',label:"Przedmiot"},
                     {key: "checkbox",label:"Dodaj"}],
+                fields:[{key:'name',label:"Przedmiot"},
+                    {key:'button',label: " "}],
                 items:[],
                 filter: null,
                 response: [],
@@ -74,6 +82,7 @@
                 params.append('email',this.Register.email)
                 params.append('name', this.Register.name )
                 params.append('surname', this.Register.surname )
+                params.append('subjects', JSON.stringify(this.selected))
                 axios.post(`http://localhost:3309/teacher`, params)
                     .then(response => {
                         this.response = response.data
@@ -92,8 +101,8 @@
                     this.items = response.data.reverse()
                 }).catch(e =>{this.errors.push("cos nie pyklo")})
             },
-            clear(){
-                this.selected = []
+            clear(item){
+                this.selected.pop(item)
             }
         },
         mounted(){
@@ -103,5 +112,7 @@
 </script>
 
 <style scoped>
-
+.fieldss{
+    display: flex;
+}
 </style>

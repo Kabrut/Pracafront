@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <div class="page">
             <h3><center>Dodaj starostę</center></h3>
@@ -15,7 +15,7 @@
                             <b-form-input v-model="Register.surname" type='text' placeholder="Nazwisko"/>
                         </b-form-group>
                         <b-form-group label="Kierunek">
-                            <b-form-input v-model="Register.field" type='field' placeholder="Kierunek"/>
+                            <vSelect v-model="selected" label="name" :options="items" placeholder="Wybierz kierunek"/>
                         </b-form-group>
                         <b-form-group label="Grupa ćwiczeniowa">
                             <b-form-input v-model="Register.group" type='group' placeholder="Grupa Ćwiczeniowa"/>
@@ -40,12 +40,15 @@
 <script>
     import axios from 'axios'
     import Register from '@/sites/Register'
+    import vSelect from 'vue-select'
     export default {
         name: "AddLeader",
         data () {
             return {
                 response: [],
                 errors: [],
+                selected:[],
+                items:[{value:null,text:'Wybierz kierunek'}],
                 Register: {
                     email: '',
                     name: '',
@@ -59,7 +62,7 @@
                 }
             }
         },
-        components: {Register},
+        components: {Register, vSelect},
         methods:{
             createUser () {
                 var params = new URLSearchParams();
@@ -67,14 +70,14 @@
                 params.append('password',this.Register.password)
                 params.append('name', this.Register.name )
                 params.append('surname', this.Register.surname )
-                params.append('field', this.Register.field )
+                params.append('field', this.selected )
                 params.append('group', this.Register.group )
                 params.append('year', this.Register.year )
                 params.append('lab', this.Register.lab )
 
                 axios.post(`http://localhost:3309/leader`, params)
                     .then(response => {
-                        this.response = response.data
+                        this.response = response.data.get(name)
                         console.log(response.data)
                         this.showResponse = true
                     })
@@ -88,7 +91,17 @@
 
                 }else {alert('Hasla nie sa zgodne');
                 }
+            },
+            getFields() {
+                axios.get(`http://localhost:3309/showFields`).then(response =>{
+                    this.items = response.data
+                }).catch(e=>{
+                    this.errors.push(e)
+                })
             }
+        },
+        mounted(){
+          this.getFields();
         }
     }
 </script>

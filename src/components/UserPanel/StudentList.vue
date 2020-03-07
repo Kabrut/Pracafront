@@ -7,21 +7,31 @@
 </template>
 
 <script>
+  import axios from "axios"
   export default {
     data() {
       return {
-        fields:[{key: 'imie', sortable: true},
-        {key: 'nazwisko', sortable:true},
-        {key:'grupa', sortable: true},
-        {key:'kierunek', sortable: true }],
-        items: [
-          { imie: "Jan", nazwisko: 'Nowak', grupa: '1', kierunek: 'Informatyka' },
-          { imie: 'Katarzyna', nazwisko: 'Kowalska', grupa: '3', kierunek: 'Ekonomia' },
-          { imie: 'Małgorzata', nazwisko: 'Robak', grupa: '2', kierunek: 'Informatyka' },
-          { imie: 'Michał', nazwisko: 'Bania', grupa: '4', kierunek: 'Mechatronika' },
-          { imie: 'Danuta', nazwisko: 'Kciuk', grupa: '2', kierunek:'Psychologia' }
-        ]
+        fields:[{key: 'name',label:'Imie', sortable: true},
+        {key:'surname',label: 'nazwisko', sortable:true},
+        {key: 'group',label:'grupa', sortable: true},
+        {key: 'field.name',label:'kierunek', sortable: true },
+          {key: 'year',label:'rok', sortable: true }],
+        items: [],
       }
+    },
+    methods: {
+      getList(){
+        axios.get(`http://localhost:3309/getList`)
+                .then(response => {
+                  this.items = response.data.reverse()
+                })
+                .catch(e => {
+                  this.errors.push("cos nie pyklo")
+                })
+      }
+    },
+    mounted(){
+      this.getList();
     }
   }
 </script>
