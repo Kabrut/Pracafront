@@ -45,9 +45,9 @@ import axios from 'axios'
         let params = new URLSearchParams();
       params.append('name',this.parseCsv[i].Imie);
       params.append('surname',this.parseCsv[i].Nazwisko);
-      params.append('field',this.localStorage.field.id);
-      params.append('group',this.localStorage.group);
-      params.append('year', this.localStorage.year);
+      params.append('field',this.$store.state.user.field.id);
+      params.append('group',this.$store.state.user.group);
+      params.append('year', this.$store.state.user.year);
       params.append('email',this.parseCsv[i].email);
       axios.post(`http://localhost:3309/List`, params)
         .then(response => {

@@ -1,40 +1,43 @@
 <template>
-  <div id="app">
-
-    <b-navbar variant="light" sticky type="light" >
-      <b-navbar-nav acenter >
-        <b-nav-item router-link to="/">Home</b-nav-item>
-        <b-nav-item router-link to="/Grades">Grades</b-nav-item>
-        <b-nav-item router-link to="/Mail">Mail</b-nav-item>
-        <b-nav-item router-link to="/Tasks">Tasks</b-nav-item>
-        <b-nav-item router-link to="/Login">Login</b-nav-item>
-        <b-nav-item router-link to="/Posts">Posts</b-nav-item>
-
-
-      </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item router-link to="/UserPanel">Panel użytkownika</b-nav-item>
-      <b-nav-item  @click="Logout">Logout</b-nav-item></b-navbar-nav>
-    </b-navbar>
-
+  <div id="app" >
+      <navbar v-if="isLoggedIn"/>
     <div class="Chat">
-    <ChatFriends/>
+    <ChatFriends v-if="isLoggedIn"/>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
+  import axios from 'axios'
 import ChatFriends from "@/components/Chat/ChatFriends";
+  import Navbar from "./components/Navbar";
     export default {
+
         name: "App",
-        components: {ChatFriends},
-      methods:{
-          Logout(){
-            localStorage.clear();
-            this.$router.push("/Login");
-          }
-      }
+        components: {Navbar, ChatFriends},
+        computed: {
+            isLoggedIn: function () {
+                return this.$store.getters.isLoggedIn
+            },
+            authStatus: function () {
+                return this.$store.getters.authStatus
+            },
+
+        },
+
+        methods: {
+            logout: function () {
+                this.$store.dispatch('logout')
+                    .then(() => {
+                        this.$router.push('/login')
+                    })
+            }
+        },
+        created() {
+            this.logout();
+        }
     }
+
 </script>
 <style>
 .Chat{
@@ -46,5 +49,8 @@ import ChatFriends from "@/components/Chat/ChatFriends";
   top: 1em;
 }
 
+  #app{
+    background: #cce5ff;
+  }
 
 </style>

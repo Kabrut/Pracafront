@@ -1,7 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
-        <b-button  v-b-toggle.collapse-1 :key='child' variant="primary">Pokaż rozwiązania</b-button>
-        <b-collapse id="collapse-1" class="mt-2">
+        <b-button v-b-toggle="'collapse-'+child.taskId"  variant="outline-primary">Pokaż rozwiązania</b-button>
+        <b-collapse
+                :id="'collapse-'+child.taskId" class="mt-2">
             <b-card>
                 <b-table :items = "child.response"   :fields="fields">
                 <template v-slot:cell(button)="row">
@@ -10,21 +11,20 @@
                     </b-button>
                 </template>
                     <template v-slot:cell(dropdown)="row">
-                        <b-form-select v-model="grade" :options="options"></b-form-select>
+                        <b-form-select v-model="row.item.dropdown" :key="" :options="options"></b-form-select>
                     </template>
                     <template v-slot:cell(comment)="row">
-                        <b-form-textarea v-model="comment"></b-form-textarea>
+                        <b-form-textarea v-model="row.item.comment"></b-form-textarea>
                     </template>
                     <template v-slot:cell(checkbox)="row">
                         <b-form-checkbox></b-form-checkbox>
                     </template>
                     <template v-slot:cell(grade) = "row">
-                        <b-button @click="addGrade" variant="outline-danger">Dodaj ocenę</b-button>
+                        <b-button @click="addGrade(row)" variant="outline-danger">Dodaj ocenę</b-button>
                     </template>
                 </b-table>
 
             </b-card>
-
         </b-collapse>
     </div>
 </template>
@@ -85,13 +85,14 @@
                 saveByteArray(name, sampleArr,type);
 
             },
-            addGrade(){
+            addGrade(student){
                 var params = new URLSearchParams;
-                params.append('comment', this.comment)
-                params.append('grade', this.grade)
+                params.append('comment', student.item.comment)
+                params.append('grade', student.item.dropdown)
                 params.append('taskid', this.child.taskId)
-                params.append('email', localStorage.email)
-
+                params.append('email', this.$store.state.user.mail)
+                params.append('student', student.item.user.mail)
+                this.grade = student
                 axios.post(`http://localhost:3309/addGrade`, params).then(response=>{
                     console.log("success")
                 }).catch(e=>{

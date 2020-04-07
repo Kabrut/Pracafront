@@ -1,12 +1,12 @@
 <template>
   <div class="commentbox">
     <b-button
-      v-b-toggle.collapse-3
+      v-b-toggle="'collapse-'+child.postid + 1"
       variant="none"
       > <img src="@/assets/comment.png"/></b-button>
         <div class="loop" v-for="Comment in child.commentList" v-bind:key="Comment.postid">
       <b-collapse
-      id="collapse-3"
+      :id="'collapse-'+child.postid + 1"
       class="mt-2"
     >
       <b-card bg-variant="light" border-variant="info" >
@@ -16,9 +16,7 @@
         style="width:50px"
       >
       </div>
-        <div class="delete">
-          <b-button @click="deleteComment(Comments)" >delete</b-button>
-        </div>
+
     <div class="name">
       <p></p>
     </div>
@@ -75,6 +73,7 @@ export default {
 <style scoped>
   .commentbox{
     padding:0px;
+    width:200px;
   }
 .name{
   float:left;

@@ -3,15 +3,11 @@
     <div class="mailbox">
     <MailBox v-on:selectedMsg="msg"/>
     </div>
-    
-<!--    <div class="ReceivedMail">-->
-    <ReceivedMail :child='selectedMsg'/></div>
 </div>
 </template>
 
 <script>
     import MailBox from "../components/Mail/MailBox";
-    import ReceivedMail from "../components/Mail/ReceivedMail";
     export default {
         data () {
             return {
@@ -19,7 +15,7 @@
             }
         },
         name: "Mail",
-        components: {  MailBox, ReceivedMail},
+        components: {  MailBox},
         methods:{
         msg (value){
             this.selectedMsg = value
@@ -31,10 +27,7 @@
 #mail{
     display:flex;
 }
-.ReceivedMail{
-    margin-top: 5px;
-    width:50%;
-}
+
 .mailbox{
     width:100%;
 }

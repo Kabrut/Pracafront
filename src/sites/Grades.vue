@@ -1,5 +1,5 @@
 <template>
-<div id="grade">
+<div id="grades">
   
     <GradeList/>
     
@@ -15,8 +15,11 @@
 </script>
 
 <style scoped>
-#grade{
+#grades{
     display:flex;
-    
+    width: 60%;
+    margin-left:10%;
+    margin-top:10px;
+
 }
 </style>

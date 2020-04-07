@@ -1,9 +1,10 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <div class="page">
-            <h3><center>Dodaj nauczyciela</center></h3>
+
             <div class="form">
                 <b-card>
+                    <h3><center>Dodaj nauczyciela</center></h3>
                     <b-form >
                         <b-form-group label="Email">
                             <b-form-input v-model="Register.email" type='email' placeholder="Email"/>
@@ -13,6 +14,13 @@
                         </b-form-group>
                         <b-form-group label="Nazwisko">
                             <b-form-input v-model="Register.surname" type='text' placeholder="Nazwisko"/>
+                        </b-form-group>
+                            <b-form-group label="Hasło">
+                                <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
+                            </b-form-group>
+                            <b-form-group label="Powtórz hasło">
+                                <b-form-input v-model="Register.password2" type='password' placeholder="Powtórz hasło"/>
+                            </b-form-group>
                             <pre/>
                             <div class="fieldss">
                                 <b-card title="Przedmioty">
@@ -43,7 +51,7 @@
                         </b-table></b-card> </div>
                         </b-form-group>
                         <div class="submit">
-                            <b-button @click="createUser()">Zarejestruj</b-button>
+                            <b-button @click="checkpasswords()">Zarejestruj</b-button>
                         </div>
                     </b-form>
                 </b-card>
@@ -72,6 +80,8 @@
                     email: '',
                     name: '',
                     surname: '',
+                    password:'',
+                    password2: '',
                 }
             }
         },
@@ -82,6 +92,7 @@
                 params.append('email',this.Register.email)
                 params.append('name', this.Register.name )
                 params.append('surname', this.Register.surname )
+                params.append('password', this.Register.password )
                 params.append('subjects', JSON.stringify(this.selected))
                 axios.post(`http://localhost:3309/teacher`, params)
                     .then(response => {
@@ -95,6 +106,13 @@
             },
             checked(id) {
                 this.selected.push(id)
+            },
+            checkpasswords () {
+                if (this.Register.password===this.Register.password2){
+                    this.createUser();
+
+                }else {alert('Hasla nie sa zgodne');
+                }
             },
             getSubjects() {
                 axios.get(`http://localhost:3309/showSubject`).then(response =>{
@@ -115,4 +133,14 @@
 .fieldss{
     display: flex;
 }
+    .form{
+        width:70%;
+        margin-left: 20%;
+        margin-bottom: 10px;
+
+    }
+    .card{
+        border-radius: 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>

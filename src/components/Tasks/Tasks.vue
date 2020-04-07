@@ -1,20 +1,21 @@
 <template>
     <div class="tasks">
-        <b-card v-for="Task in Tasks"
+        <div v-for="Task in Tasks"
               :key="Task.taskId"
+             class="tasklist"
     >
+            <b-card class="cards" v-if="role=='teacher' || (year===Task.year && group === Task.groupz && field === Task.field.name)">
+            <b-card-title>{{Task.title}}</b-card-title>
                 {{Task.content}}
                 <b-button v-if="Task.blob !== null"  v-on:click="fileConvert(Task.blob, Task.type, Task.filename)" variant="outline-dark">{{Task.filename}}<img src="@/assets/download.png"/></b-button>
             <p>{{error}}</p>
-            <b-button variant="info" v-b-modal="modalId(Task.taskId)">Szczegóły</b-button>
-            <ResponseList v-on:key="Task.taskId" :child='Task' v-on:event_child="eventChild" />
-            <b-modal :id="modalId(Task.taskId)" title="Szczegóły zadania">
-                {{Task.content}}
-                <Response :key="Task.taskId" :child='Task.taskId'/>
 
-            </b-modal>
+            <ResponseList v-if="role === 'teacher'" v-on:key="Task.taskId" :child='Task' v-on:event_child="eventChild" />
+            <Response v-if="role ==='student' || role === 'leader'" :key="Task.taskId" :child='Task'/>
 
-        </b-card>
+
+            </b-card>
+        </div>
         {{errors}}
     </div>
 </template>
@@ -29,10 +30,13 @@ export default {
     data () {
     return {
       TaskContent: "",
-      errors: [],
+      errors: " ",
       Tasks: "",
-        i:0
-
+        i:0,
+        role: this.$store.state.user.role.name,
+        year: this.$store.state.user.year,
+        group: this.$store.state.user.groups,
+        field: this.$store.state.user.field.name,
     }
   },
     methods: {
@@ -75,5 +79,12 @@ export default {
 </script>
 
 <style scoped>
-
+.tasklist{
+    margin:5px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+    .cards{
+        border-radius:25px;
+    }
 </style>

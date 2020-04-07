@@ -4,6 +4,7 @@
     <div class="content" >
       <b-card v-for="Post in Posts"
               :key="Post.postid"
+              class="posts"
       >
         <p><strong>
         <p>{{ Post.user.name }} {{Post.user.surname}} <b-button variant="outline" class="delete" @click="deletePost(Post.postid)"><img src="@/assets/trash.png"/></b-button></p>
@@ -15,7 +16,7 @@
 
         <div class="contentbox">
           <p>{{ Post.post_content }}</p>
-
+          <p><b-button v-if="Post.blob !== null"  v-on:click="fileConverts(Post.blob, Post.filetype,Post.filename)" variant="outline-info"> <img src="@/assets/download.png"/>{{Post.filename}}</b-button></p>
         </div>
       </b-card>
       <div class="comment">
@@ -35,6 +36,7 @@ import Comment from './Comment'
 import NewPost from './NewPost'
 import axios from 'axios'
 import NewComment from "./NewComment";
+import {base64ToArrayBuffer,saveByteArray} from "../Tasks/filedownload.js"
 export default {
   name: 'Posts',
   components: {NewComment, NewPost, Comment},
@@ -48,7 +50,11 @@ export default {
   },
   methods: {
     showPost () {
-      axios.get(`http://localhost:3309/show`)
+      var params = new URLSearchParams;
+      params.append('field',this.$store.state.user.field.name)
+      params.append('group',this.$store.state.user.groups)
+      params.append('year',this.$store.state.user.year)
+      axios.get(`http://localhost:3309/showGroupPost`,{params})
         .then(response => {
           this.Posts = response.data.reverse()
           console.log(response.Post)
@@ -73,6 +79,11 @@ export default {
   },
     done() {
       this.showPost()
+    },
+    fileConverts(file,type,name){
+      var sampleArr =  base64ToArrayBuffer(file);
+      saveByteArray(name, sampleArr,type);
+
     },
 },
   mounted () {
@@ -101,5 +112,10 @@ export default {
   .comment{
     display:inline-block;
     float:left;
+  }
+  .posts{
+    margin:15px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 </style>

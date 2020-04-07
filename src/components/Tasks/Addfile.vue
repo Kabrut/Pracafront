@@ -1,6 +1,7 @@
 <template>
 <div>
-  <b-button v-b-modal.modal-1>Dodaj zadanie</b-button>
+    <div class="add">
+  <b-button variant="outline-dark" v-b-modal.modal-1>Dodaj zadanie</b-button></div>
       <b-modal id="modal-1"
       title="Nowe Zadanie"
       @ok="both"
@@ -10,11 +11,11 @@
           <p>Kierunek:</p>
           <b-form-select v-model="field" :options="items" text-field="name"></b-form-select>
           <p>Rok</p>
-          <b-form-select v-model="year" :options="options1"></b-form-select>
+          <b-form-select v-model="year" :options="years"></b-form-select>
           <p>Przedmiot</p>
           <b-form-select v-model="subject" :options="subjects" text-field="name" ></b-form-select>
           <p>Grupa</p>
-          <b-form-select v-model="group" :options="options1"></b-form-select>
+          <b-form-select v-model="group" :options="options"></b-form-select>
           <p> Treść zadania:</p>
           <b-form-textarea v-model="content"/>
           {{errors}}
@@ -39,21 +40,17 @@ export default {
             { value:  '8', text:'8'},
             { value:  '9', text:'9'},
             { value:  '10',text: '10'}],
-        options1:[
-            { text: '1', value: '1'},
-            { text: '2', value: '2'},
-            { text: '3', value: '3'},
-            { text: '4', value: '4'}],
         field: null,
         year:null,
         group:null,
         title:'',
         response: [],
+        years: [],
 
         items:[],
 
       file: '',
-        subjects:[],
+        subjects:this.$store.state.user.subject,
       content: '',
         fileava: false
 
@@ -69,6 +66,7 @@ export default {
          formData.append('year', this.year),
          formData.append('title', this.title),
          formData.append('group', this.group),
+         formData.append('mail', this.$store.state.user.mail),
 
         axios.post(`http://localhost:3309/newTask`,
         formData,{headers: {'Content-Type': 'multipart/form-data'}}).then(function(){
@@ -98,6 +96,7 @@ export default {
               params.append('year', this.year),
               params.append('title', this.title),
               params.append('group', this.group),
+              params.append('mail', this.$store.state.user.mail),
           axios.post(`http://localhost:3309/newTask1`,
               params).then(function(){
               console.log('success')
@@ -107,7 +106,7 @@ export default {
       },
       getsubjects(){
           var params = new URLSearchParams;
-          params.append('email', localStorage.email)
+          params.append('email', this.$store.user.mail)
           axios.get(`http://localhost:3309/getSubject`, {params})
               .then(response =>{
                   this.subjects=response.data.reverse();
@@ -121,12 +120,27 @@ export default {
 
           }).catch(e =>{this.errors.push("cos nie pyklo")})
       },
+        getyearss() {
+            axios.get(`http://localhost:3309/getyear`).then(response =>{
+                this.years = response.data
+
+            }).catch(e=>{
+                this.errors.push(e)
+            })
+        },
       },
-    mounted() {
+    created() {
+        this.getyearss()
       this.getField()
-      this.getsubjects()
+
+
     }
 
 
 }
 </script>
+<style scoped>
+.add{
+    margin:15px;
+}
+</style>

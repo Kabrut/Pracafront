@@ -1,19 +1,21 @@
 <template>
     <div>
-        <b-card title="Dodaj kierunek">
+        <div class="field">
+        <b-card title="Dodaj kierunek" class="card" >
         <b-table sticky-header :items="items">
 
         </b-table>
         <b-form-input v-model="field" type="text"/>
             <pre/>
             <b-button @click="addField" variant="outline-info">Dodaj</b-button>
-        </b-card>
+        </b-card></div>
+        <div class="field">
         <b-card title="Dodaj Przedmiot">
             <b-table sticky-header :items="items1"></b-table>
             <b-form-input v-model="subject" type="text"/>
             <pre/>
             <b-button @click="addSubject" variant="outline-info">Dodaj</b-button>
-        </b-card>
+        </b-card></div>
     </div>
 </template>
 
@@ -69,5 +71,15 @@
 </script>
 
 <style scoped>
-
+ .field{
+     width:70%;
+     margin-left: 20%;
+     margin-top:10px;
+     margin-bottom: 5px;
+     border-radius: 25px;
+ }
+    .card{
+        border-radius: 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>

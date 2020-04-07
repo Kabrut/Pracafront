@@ -1,13 +1,15 @@
 <template>
     <div>
         <b-button :key="child.postid"
-                v-b-toggle.collapse-4
+                v-b-toggle="'collapse-'+child.postid"
                 variant="none"
         > <img src="@/assets/addcomment.png"/></b-button>
         <b-collapse
-                id="collapse-4"
+                :id="'collapse-'+child.postid"
                 class="mt-2"
         >
+
+
             <b-form-textarea v-model="content"/>
 
             <b-button @click="newComment()">Dodaj</b-button>
@@ -32,10 +34,13 @@
             }
         },
         methods:{
+            collapse(){
+              return 'collapse-'+ this.child.postid;
+            },
             newComment(){
                 var params = new URLSearchParams();
                 params.append('content',this.content);
-                params.append('email', localStorage.email);
+                params.append('email', this.$store.state.user.mail);
                 params.append('id', this.child.postid)
 
 

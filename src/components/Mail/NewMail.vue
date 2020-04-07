@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-dropdown-form>
+    <b-form>
       <b-form-group label="Odbiorca">
         <b-form-input type="email" placeholder="Odbiorca" v-model="Message.receiver"/>
       </b-form-group>
@@ -11,7 +11,7 @@
         <b-form-textarea v-model="Message.content" placeholder="Treść"/>
         <b-button @click="message()">Wyślij</b-button>
       </b-form-group>
-      </b-dropdown-form>
+      </b-form>
 </div>
    
 </template> 
@@ -22,7 +22,7 @@ export default {
     return {
       response: [],
       errors: [],
-      author: localStorage.email,
+      author: this.$store.state.user.mail,
       Message: {
         subject: '',
         content: '',
@@ -47,7 +47,17 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-      }
+      },
+     getname(){
+        this.Message.receiver = sessionStorage.getItem('msg')
+     },
+
+    },
+    mounted(){
+        setInterval(function (){
+          this.getname()
+     }.bind(this), 500)
+
     }
 }
 </script>

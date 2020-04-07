@@ -1,31 +1,24 @@
 <template>
-
   <div class="home">
-    <h2>{{localfield}}</h2>
+    <center><h2>Posty grupy {{localfield}} {{localyear}}</h2></center>
     <HomePost/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { mapState, mapActions } from 'vuex'
-import HomePost from '@/components/HomePage/HomePost.vue'
+import HomePost from '../components/HomePage/HomePost.vue'
 export default {
-  data(){
-    return{
-    localfield: localStorage.field,
-    }
-  },
-  computed: {
-        ...mapState({
-            account: state => state.account,
-            users: state => state.users.all
-        })
-    },
   name: 'home',
   components: {
     HomePost
-  }
+  },
+  data(){
+    return{
+    localfield: this.$store.state.user.field.name,
+      localyear: this.$store.state.user.year,
+    }
+  },
 }
 </script>
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card>
-    <b-table striped hover :items="items" :fields="fields"></b-table> 
+    <b-table striped hover :items="items" :fields="fields"></b-table>
     </b-card>
   </div>
 </template>
@@ -13,7 +13,7 @@
       return {
         fields:[{key: 'name',label:'Imie', sortable: true},
         {key:'surname',label: 'nazwisko', sortable:true},
-        {key: 'group',label:'grupa', sortable: true},
+        {key: 'groups',label:'grupa', sortable: true},
         {key: 'field.name',label:'kierunek', sortable: true },
           {key: 'year',label:'rok', sortable: true }],
         items: [],
