@@ -2,7 +2,7 @@
 <div id="grade">
 <b-card class="table">
    <center><h2>Oceny</h2></center>
-   <b-table striped hover :items="items" :fields="fields" responsive>
+   <b-table striped hover sort :items="items" :fields="fields" responsive>
       <template v-slot:cell(teacher)="data">
          {{ data.value }}
       </template>
@@ -19,9 +19,9 @@ export default {
         return{
             fields: [
                 {key: 'grade', label: 'Ocena'},
-                {key: 'date', label:'Data'},
+                {key: 'date', label:'Data',sortable: true},
                 {key: 'comment', label:'Komentarz'},
-                {key:'przedmiot.name',label:"Przedmiot"},
+                {key:'przedmiot.name',label:"Przedmiot", sortable: true},
                 {key: 'teacher',label: 'Dodane przez',formatter: 'fullname'},
             ],
                 items:[],

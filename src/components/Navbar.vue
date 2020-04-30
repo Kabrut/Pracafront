@@ -1,7 +1,7 @@
 <template>
     <div id="app" >
 
-        <b-navbar variant="light" sticky type="light"  v-if="isLoggedIn">
+        <b-navbar class="navbarr"  sticky v-if="isLoggedIn">
             <b-navbar-nav acenter >
                 <b-nav-item router-link to="/">Posty</b-nav-item>
                 <b-nav-item router-link to="/Grades">Oceny</b-nav-item>
@@ -49,6 +49,8 @@
     }
 </script>
 <style>
-
+.navbarr{
+    background-color: rgba(255,255,255,.95)!important;
+}
 
 </style>

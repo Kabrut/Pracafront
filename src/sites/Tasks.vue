@@ -4,7 +4,7 @@
        <Addfile v-if="role === 'teacher'"/>
       
 
-       <h2>Ostatnie zadania</h2>
+       <h2 class="text">Ostatnie zadania</h2>
        <Tasks/>
     </div>
 </template>
@@ -30,4 +30,7 @@ export default {
     margin-right:auto;
     margin-left:10%;
 }
+    .text{
+        color: white;
+    }
 </style>

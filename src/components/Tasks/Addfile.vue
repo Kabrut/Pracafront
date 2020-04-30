@@ -1,7 +1,8 @@
 <template>
-<div>
+<div class="addd">
+    <b-card title="Dodaj nowe zadanie">
     <div class="add">
-  <b-button variant="outline-dark" v-b-modal.modal-1>Dodaj zadanie</b-button></div>
+  <b-button variant="outline-dark" v-b-modal.modal-1>Dodaj zadanie</b-button></div></b-card>
       <b-modal id="modal-1"
       title="Nowe Zadanie"
       @ok="both"
@@ -21,6 +22,10 @@
           {{errors}}
           <input type="file" id="file" ref="file" v-on:change="upload()" placeholder="Wybierz">
       </b-modal>
+    <b-alert variant="warning"
+             dismissable
+             v-model="alert"
+    > Utworzono nowe zadanie</b-alert>
 
 </div>
 </template>
@@ -46,6 +51,7 @@ export default {
         title:'',
         response: [],
         years: [],
+        alert: false,
 
         items:[],
 
@@ -71,6 +77,7 @@ export default {
         axios.post(`http://localhost:3309/newTask`,
         formData,{headers: {'Content-Type': 'multipart/form-data'}}).then(function(){
             console.log('success')
+            this.alert=true
         }).catch(function(){
             console.log('Failure')
         })
@@ -100,6 +107,7 @@ export default {
           axios.post(`http://localhost:3309/newTask1`,
               params).then(function(){
               console.log('success')
+              this.alert = true
           }).catch(function(){
               console.log('Failure')
           })
@@ -142,5 +150,14 @@ export default {
 <style scoped>
 .add{
     margin:15px;
+    background-color: rgba(255,255,255,.95);
 }
+    .addd{
+        margin:50px;
+
+    }
+    .card{
+        border-radius:25px;
+    }
+
 </style>

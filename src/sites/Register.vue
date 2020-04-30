@@ -1,44 +1,45 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div class="page">
         <div class="page">
-            <h3><center>Rejestracja</center></h3>
+
             <div class="form">
                 <b-card>
+                    <h3 class="text"><center>Rejestracja</center></h3>
                     <b-form >
-                        <b-form-group label="Email">
+                        <b-form-group class="text" label="Email">
                             <b-form-input v-model="Register.email" type='email' placeholder="Email"/>
                         </b-form-group>
-                        <b-form-group label="Hasło">
+                        <b-form-group class="text" label="Hasło">
                             <b-form-input v-model="Register.password" type='password' placeholder="Hasło"/>
                         </b-form-group>
-                        <b-form-group label="Powtórz hasło">
+                        <b-form-group class="text" label="Powtórz hasło">
                             <b-form-input v-model="Register.password2" type='password' placeholder="Powtórz hasło"/>
                         </b-form-group>
-                        <b-form-group label="Imie">
+                        <b-form-group class="text" label="Imie">
                             <b-form-input v-model="Register.name" type='text' placeholder="Imie"/>
                         </b-form-group>
-                        <b-form-group label="Nazwisko">
+                        <b-form-group class="text" label="Nazwisko">
                             <b-form-input v-model="Register.surname" type='text' placeholder="Nazwisko"/>
                         </b-form-group>
-                        <b-form-group label="Kierunek">
-                            <vSelect v-model="selected" label="name" :options="items" placeholder="Wybierz kierunek"/>
+                        <b-form-group class="text" label="Kierunek">
+                            <vSelect class="text" v-model="selected" label="name" :options="items" placeholder="Wybierz kierunek"/>
                         </b-form-group>
-                        <b-form-group label="Grupa ćwiczeniowa">
+                        <b-form-group class="text" label="Grupa ćwiczeniowa">
                             <b-form-select v-model="Register.group" :options="options" placeholder="Grupa Ćwiczeniowa"/>
                         </b-form-group>
-                        <b-form-group label="Grupa laboratoryjna">
+                        <b-form-group class="text" label="Grupa laboratoryjna">
                             <b-form-select v-model="Register.lab" :options="options" placeholder="Grupa laboratoryjna"/>
                         </b-form-group>
-                        <b-form-group label="Rok rozpoczęcia studiów">
+                        <b-form-group class="text" label="Rok rozpoczęcia studiów">
                             <b-form-input v-model="Register.startyear" type='year' placeholder="Rok rozpoczęcia studiów"/>
                         </b-form-group>
-                        <b-form-group label="Rok zakończenia studiów">
+                        <b-form-group class="text" label="Rok zakończenia studiów">
                             <b-form-input v-model="Register.endyear" type='year' placeholder="Rok zakończenia studiów"/>
                         </b-form-group>
                         <div class="submit">
-                            <b-button @click="checkpasswords()" class="btn1">Zarejestruj</b-button>
+                            <b-button variant="outline-light" @click="checkpasswords()" class="btn1">Zarejestruj</b-button>
 
-                            <router-link to="/Login"><b-button class="btn1">Powrót</b-button></router-link>
+                            <router-link to="/Login"><b-button variant="outline-light" class="btn1">Powrót</b-button></router-link>
                         </div>
                         <b-alert
                                 variant="danger"
@@ -157,4 +158,21 @@
 .btn1{
     margin:4px;
 }
+    .card{
+        background-color:rgba(0,0,0,.8);
+        border-radius: 25px;
+    }
+    .form{
+
+    }
+    .text{
+        color:white;
+    }
+    .v-select{
+        background: #ffffff;
+        border-radius: 3px;
+    }
+    .v-select .vs__search{
+        color:slategray;
+    }
 </style>

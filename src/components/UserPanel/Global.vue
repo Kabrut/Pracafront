@@ -14,7 +14,7 @@
                 <b-label>{{year}}</b-label>
             <div class="field"><b-label><b>Grupa</b></b-label></div>
                 <b-label>{{group}}</b-label>
-            <div class="field"><b-button v-b-modal.modal-1>Zmień hasło</b-button></div>
+            <div class="field"><b-button v-b-modal.modal-1 variant="outline-danger">Zmień hasło</b-button></div>
 
             <b-modal id="modal-1"
                      title="Zmiana hasła"

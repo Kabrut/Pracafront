@@ -1,7 +1,7 @@
 <template>
 
     <div class="posts">
-        <h1> Grupa {{group}}, {{field}} {{year}}</h1>
+        <h1 class="text"> Grupa {{group}}, {{field}} {{year}}</h1>
     <Post/>
     </div>
 </template>
@@ -30,4 +30,7 @@ width: 50%;
     margin-left:12%;
 
 }
+    .text{
+        color:white;
+    }
 </style>

@@ -1,21 +1,21 @@
 <template>
 <div class="page">
 
-    <h3><center>Logowanie</center></h3>
+    <h3 class="text"><center>Logowanie</center></h3>
     <div class="form">
         {{cos}}
         <b-card>
     <b-form @submit.prevent="login">
-      <b-form-group label="Login">
+      <b-form-group class="text" label="Login">
         <b-form-input required v-model="email" type='email' placeholder="Login"/>
       </b-form-group>
-      <b-form-group label="Hasło">
+      <b-form-group class="text" label="Hasło">
         <b-form-input required v-model="password" type='password' placeholder="Hasło"/>
       </b-form-group>
       <div class="submit">
-      <b-button type='submit' @click="login">Zaloguj</b-button>
+      <b-button variant="outline-light" type='submit' @click="login">Zaloguj</b-button>
 
-      <router-link to="/Register"><b-button>Zarejestruj</b-button></router-link>
+      <router-link to="/Register"><b-button variant="outline-light">Zarejestruj</b-button></router-link>
           <b-alert variant="danger"
                    dismissable
                    v-model="alert"
@@ -91,11 +91,16 @@ export default {
 .page{
     width:30%;
     margin: 21em auto;
-    
+    /*background-color: rgba(100,149,237,.6);*/
+    background-color: rgba(0,0,0,.8);
+    padding:25px;
+    border-radius: 25px;
+
     
 }
 .form{
     margin:auto;
+    opacity: 1!important;
 }
 .btn{
     display: inline-block;
@@ -105,5 +110,10 @@ export default {
 .submit{
      text-align: center;
 }
-
+.card{
+    background-color: transparent;
+}
+.text{
+    color:white;
+}
 </style>

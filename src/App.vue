@@ -50,7 +50,8 @@ import ChatFriends from "@/components/Chat/ChatFriends";
 }
 
   #app{
-    background: #cce5ff;
+
+
   }
 
 </style>

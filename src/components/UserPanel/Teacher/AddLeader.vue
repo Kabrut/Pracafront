@@ -38,7 +38,7 @@
                             <b-form-input v-model="Register.endyear" type='year' placeholder="Rok zakończenia studiów"/>
                         </b-form-group>
                         <div class="submit">
-                            <b-button @click="createUser()">Zarejestruj</b-button>
+                            <b-button @click="createUser()" variant="outline-danger">Zarejestruj</b-button>
                         </div>
                     </b-form>
                 </b-card>
@@ -130,5 +130,6 @@
     .card{
         border-radius: 25px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: rgba(255,255,255,.98);
     }
 </style>

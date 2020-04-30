@@ -2,6 +2,8 @@
     <div id="app">
 
         <div class="content" >
+            <center><h2 class="text" v-if="localfield !== 'pracownik'">Posty grupy {{localfield}} {{localyear}}</h2></center>
+            <center><h2 class="text" v-if="localfield === 'pracownik'">Posty pracowników</h2></center>
             <div v-for="Post in Posts"
                     :key="Post.postid"
             >
@@ -43,8 +45,10 @@
        // components: {NewComment, NewPost, Comment},
         data () {
             return {
-                Posts: [],
-                errors: [],
+                localfield: this.$store.state.user.field.name,
+                localyear: this.$store.state.user.year,
+                Posts: '',
+                errors: '',
                 user: this.$store.state.user.mail,
             }
         },
@@ -122,5 +126,8 @@
     .card{
         margin-top:10px;
         border-radius: 25px;
+    }
+    .text{
+        color:white;
     }
 </style>

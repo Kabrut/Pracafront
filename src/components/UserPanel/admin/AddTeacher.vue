@@ -22,8 +22,9 @@
                                 <b-form-input v-model="Register.password2" type='password' placeholder="Powtórz hasło"/>
                             </b-form-group>
                             <pre/>
+                        <label>Dodaj przedmioty które prowadzi nauczyciel</label>
                             <div class="fieldss">
-                                <b-card title="Przedmioty">
+                                <b-card >
                             <b-col lg="10" class="my-1">
                                 <b-input-group size="sm">
                                     <b-form-input
@@ -40,18 +41,20 @@
 
                              <b-table :filter="filter" sticky-header :items="items" :fields="field">
                                 <template v-slot:cell(checkbox)="row">
-                                    <b-button v-model="row.checkbox" @click="checked(row.item)">Dodaj</b-button>
+                                    <b-button variant="outline-info" v-model="row.checkbox" @click="checked(row.item)">Dodaj</b-button>
                                 </template>
                             </b-table></b-card>
                                 <h1 style="margin-top:5em">⇨</h1>
-                       <b-card title="Wybrane"><b-table :items="selected" :fields="fields">
+                       <b-card>
+                           <label>Przedmioty wybrane dla nauczyciela</label>
+                           <b-table :items="selected" :fields="fields">
                             <template v-slot:cell(button)="row">
-                                <b-button @click="clear(row.item)">Usuń</b-button>
+                                <b-button variant="outline-danger" @click="clear(row.item)">Usuń</b-button>
                             </template>
                         </b-table></b-card> </div>
                         </b-form-group>
                         <div class="submit">
-                            <b-button @click="checkpasswords()">Zarejestruj</b-button>
+                            <b-button @click="checkpasswords()" variant="danger">Zarejestruj</b-button>
                         </div>
                     </b-form>
                 </b-card>

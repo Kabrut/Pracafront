@@ -5,17 +5,11 @@
         <b-table sticky-header :items="items">
 
         </b-table>
-        <b-form-input v-model="field" type="text"/>
+        <b-form-input placeholder="Wprowadź nazwę nowego kierunku" v-model="field" type="text"/>
             <pre/>
-            <b-button @click="addField" variant="outline-info">Dodaj</b-button>
+            <b-button @click="addField" variant="outline-danger">Dodaj</b-button>
         </b-card></div>
-        <div class="field">
-        <b-card title="Dodaj Przedmiot">
-            <b-table sticky-header :items="items1"></b-table>
-            <b-form-input v-model="subject" type="text"/>
-            <pre/>
-            <b-button @click="addSubject" variant="outline-info">Dodaj</b-button>
-        </b-card></div>
+
     </div>
 </template>
 

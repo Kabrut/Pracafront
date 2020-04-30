@@ -5,7 +5,7 @@
              class="tasklist"
     >
             <b-card class="cards" v-if="role=='teacher' || (year===Task.year && group === Task.groupz && field === Task.field.name)">
-            <b-card-title>{{Task.title}}</b-card-title>
+            <b-card-title>{{Task.subject.name}}: {{Task.title}} </b-card-title>
                 {{Task.content}}
                 <b-button v-if="Task.blob !== null"  v-on:click="fileConvert(Task.blob, Task.type, Task.filename)" variant="outline-dark">{{Task.filename}}<img src="@/assets/download.png"/></b-button>
             <p>{{error}}</p>
